@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact Us | Smart Business System</title>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+  <!-- AOS Library -->
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="css/cont.css">
+</head>
+<body>
+
+  <!-- CONTACT CONTAINER -->
+  <div class="contact-container">
+
+    <!-- Left Image -->
+    <div class="contact-image" data-aos="fade-right"></div>
+
+    <!-- Right Content -->
+    <div class="contact-content" data-aos="fade-left">
+      <h1>Let's Build Your Success</h1>
+      <p>
+        Reach out for expert support on inventory, sales, and resource management.
+        We help small businesses streamline operations with smart tools and actionable insights.
+      </p>
+
+      <!-- Contact Form -->
+      <form action="contact.php" method="post">
+        <input type="text" placeholder="Your Name" required>
+        <input type="email" placeholder="Email" required>
+        <input type="tel" placeholder="Phone Number" required>
+        <textarea placeholder="Your Message" required></textarea>
+        <button type="submit">Send Message</button>
+      </form>
+
+      <!-- Contact Info -->
+      <div class="contact-info">
+        <p><span>Email:</span> support@smartbusiness.com</p>
+        <p><span>Phone:</span> +1 (555) 234-5678</p>
+        <p><span>Address:</span> 123 Innovation Street, Tech City</p>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- AOS JS -->
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>
+    AOS.init({ duration: 1000, once: true });
+  </script>
+
+</body>
+</html>

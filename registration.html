@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Register | BRIMS</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/reg.css">
+</head>
+<body>
+
+<div class="registration-page">
+
+  <!-- HEADER -->
+  <header class="reg-header">
+    <h1>BRIMS</h1>
+    <p>Create your account to manage your business smarter</p>
+  </header>
+
+  <!-- MAIN FORM -->
+  <main>
+    <div class="form-card">
+      <h2>Register Your Account</h2>
+      <form method="post" action="registration.php">
+
+        <div class="form-group">
+          <input type="text" name="username" placeholder="Username" required>
+        </div>
+        <div class="form-group">
+          <input type="text" name="full_name" placeholder="Full Name">
+        </div>
+        <div class="form-group">
+          <input type="email" name="email" placeholder="Email">
+        </div>
+        <div class="form-group">
+          <input type="password" name="password" placeholder="Password" required>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <select name="role">
+              <option value="staff">Staff</option>
+              <option value="admin">Admin</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <select name="account_type">
+              <option value="personal">Personal</option>
+              <option value="business">Business</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <input type="date" name="dob">
+          </div>
+          <div class="form-group">
+            <input type="text" name="phone" placeholder="Phone">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <input type="text" name="country" placeholder="Country">
+        </div>
+
+        <div class="form-group">
+          <input type="text" name="business_name" placeholder="Business Name">
+        </div>
+
+        <div class="form-group">
+          <select name="business_type">
+            <option value="">Business Type</option>
+            <option value="tech">Tech</option>
+            <option value="retail">Retail</option>
+            <option value="services">Services</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <input type="number" name="employees" placeholder="Number of Employees">
+          </div>
+          <div class="form-group">
+            <input type="text" name="job_title" placeholder="Job Title">
+          </div>
+        </div>
+
+        <label><input type="checkbox" name="terms_agreed" required> I agree to Terms & Conditions</label>
+        <label><input type="checkbox" name="newsletter_subscribed"> Subscribe to Newsletter</label>
+
+        <button type="submit" name="register">Register</button>
+        <p class="login-link">Already have an account? <a href="login.html">Login here</a></p>
+
+      </form>
+    </div>
+  </main>
+
+</div>
+
+</body>
+</html>

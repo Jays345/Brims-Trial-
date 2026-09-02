@@ -1,0 +1,131 @@
+/* RESET */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+/* COLORS */
+:root {
+  --primary: #1e90ff;
+  --secondary: #00c49a;
+  --text: #333;
+  --bg: #f7f9fc;
+  --card-bg: #fff;
+  --shadow: rgba(0,0,0,0.1);
+}
+
+/* BODY */
+body {
+  background: var(--bg);
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* LOGIN CONTAINER */
+.login-container {
+  background: var(--card-bg);
+  padding: 50px 40px;
+  border-radius: 15px;
+  box-shadow: 0 10px 30px var(--shadow);
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.login-container:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+}
+
+/* HEADINGS */
+h2 {
+  font-size: 1.8rem;
+  color: var(--primary);
+  margin-bottom: 8px;
+}
+
+.subtitle {
+  font-size: 0.95rem;
+  color: #555;
+  margin-bottom: 30px;
+}
+
+/* FORM */
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+input[type="text"],
+input[type="password"] {
+  width: 100%;
+  padding: 14px 16px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+input:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 10px rgba(30, 144, 255, 0.2);
+  outline: none;
+}
+
+/* BUTTON */
+button {
+  width: 100%;
+  padding: 14px;
+  background: linear-gradient(90deg, var(--primary), var(--secondary));
+  border: none;
+  border-radius: 10px;
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+button:hover {
+  background: linear-gradient(90deg, var(--secondary), var(--primary));
+  transform: translateY(-2px);
+}
+
+/* LINKS */
+.links {
+  margin-top: 20px;
+  font-size: 0.9rem;
+}
+
+.links a {
+  text-decoration: none;
+  color: var(--primary);
+  transition: color 0.3s ease;
+}
+
+.links a:hover {
+  color: var(--secondary);
+  text-decoration: underline;
+}
+
+/* RESPONSIVE */
+@media(max-width: 480px) {
+  .login-container {
+    padding: 35px 25px;
+  }
+
+  h2 {
+    font-size: 1.5rem;
+  }
+
+  button {
+    padding: 12px;
+    font-size: 0.95rem;
+  }
+}

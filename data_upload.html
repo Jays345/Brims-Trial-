@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Data Uploads | BRIMS</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+  body { margin:0; font-family: 'Poppins', sans-serif; background:#0f172a; color:#f1f5f9; display:flex; }
+  .sidebar { width:220px; background:#1e293b; height:100vh; padding-top:20px; position:fixed; box-shadow:2px 0 8px rgba(0,0,0,0.2);}
+  .logo { display:flex; justify-content:center; align-items:center; padding:15px 0; border-bottom:1px solid rgba(255,255,255,0.1); margin-bottom:10px; }
+  .logo img { width:60px; height:60px; border-radius:12px; }
+  .sidebar ul { list-style:none; padding:0; margin:0; }
+  .sidebar a { color:#f1f5f9; text-decoration:none; display:block; padding:12px 20px; border-radius:8px; transition:0.3s; }
+  .sidebar a:hover { background:#3b82f6; color:#fff; }
+  .main-content { margin-left:220px; padding:30px; flex:1; }
+  h1 { margin-bottom:20px; font-size:1.6em; }
+  .form-card { background:#1e293b; border-radius:12px; padding:20px; margin-bottom:25px; box-shadow:0 3px 10px rgba(0,0,0,0.2); }
+  form label { display:block; margin:10px 0 5px; }
+  input, select, textarea { width:100%; padding:10px; border:none; border-radius:6px; background:#334155; color:#fff; font-size:0.95em; }
+  button { margin-top:10px; background:#3b82f6; border:none; padding:10px 16px; border-radius:6px; color:#fff; cursor:pointer; transition:0.3s; }
+  button:hover { background:#1d4ed8; }
+  .upload-section { border:2px dashed #3b82f6; border-radius:10px; padding:25px; text-align:center; color:#cbd5e1; }
+</style>
+</head>
+<body>
+
+  <div class="sidebar">
+    <div class="logo">
+      <img src="https://cdn-icons-png.flaticon.com/512/1828/1828673.png" alt="BRIMS Logo" />
+    </div>
+      <ul>
+            <li><a href="index.html"> <span>Dashboard</span></a></li>
+            <li><a href="products.html"> <span>Inventory</span></a></li>
+            <li><a href="suppliers.html"> <span>Suppliers</span></a></li>
+            <li><a href="orders.html"> <span>Orders</span></a></li>
+            <li><a href="reports.html"> <span>Reports</span></a></li>
+            <li><a href="budgets.html"> <span>Budget</span></a></li>
+            <li><a href="request.html"> <span>Help</span></a></li>
+            <li><a href="chat.html"> <span>Chatbot</span></a></li>
+            <li><a href="settings.html"> <span>Settings</span></a></li>
+
+      </ul>
+  </div>
+
+  <div class="main-content" id="pageContent">
+    <h1>Upload or Add Data</h1>
+
+    <!-- Upload Files -->
+    <div class="form-card">
+      <h2>Upload Data Documents</h2>
+      <div class="upload-section">
+        <p>Drag & Drop your Excel, CSV, or PDF files here or</p>
+        <form id="fileUploadForm" enctype="multipart/form-data">
+          <label for="uploadType">Select Data Type</label>
+          <select id="uploadType" name="type" required>
+            <option value="">-- Choose Type --</option>
+            <option value="orders">Order</option>
+            <option value="suppliers">Supplier</option>
+            <option value="products">Product</option>
+            <option value="expenses">Expense</option>
+            <option value="budget_details">Budget</option>
+          </select>
+          <input type="file" name="dataFile" accept=".csv,.xlsx,.xls,.pdf" required>
+          <button type="submit">Upload File</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Manual Entry -->
+    <div class="form-card">
+      <h2>Manual Data Entry</h2>
+      <form id="manualEntryForm">
+        <label for="manualType">Select Data Type</label>
+        <select id="manualType" name="type" required>
+          <option value="">-- Choose Type --</option>
+          <option value="orders">Order</option>
+          <option value="categories">categories</option>
+          <option value="suppliers">Supplier</option>
+          <option value="products">Product</option>
+          <option value="expenses">Expense</option>
+          <option value="budget_details">Budget</option>
+        </select>
+        <label for="details">Enter Details (JSON format)</label>
+        <textarea id="details" name="details" rows="5" placeholder='{"column1":"value1","column2":"value2"}' required></textarea>
+        <button type="submit">Submit Data</button>
+      </form>
+    </div>
+  </div>
+
+<script>
+document.getElementById('fileUploadForm').addEventListener('submit', function(e){
+  e.preventDefault();
+  const formData = new FormData(this);
+  fetch('api/upload_docs.php', {
+    method:'POST',
+    body: formData
+  })
+  .then(res => res.json())
+  .then(data => alert(data.message))
+  .catch(err => alert('Error uploading file.'));
+});
+
+document.getElementById('manualEntryForm').addEventListener('submit', function(e){
+  e.preventDefault();
+  const formData = new FormData(this);
+  fetch('api/manual_entry.php', {
+    method:'POST',
+    body: formData
+  })
+  .then(res => res.json())
+  .then(data => alert(data.message))
+  .catch(err => alert('Error submitting data.'));
+});
+</script>
+
+</body>
+</html>

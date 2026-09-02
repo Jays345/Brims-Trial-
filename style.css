@@ -1,0 +1,386 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Segoe UI", Arial, sans-serif;
+}
+
+body {
+  background-color: #fff;
+  color: #111;
+  line-height: 1.6;
+}
+
+/* Header */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 80px;
+  background-color: white;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+}
+
+.logo img {
+  width: 40px;
+  height: 40px;
+}
+
+.logo h1 {
+  color: #a855f7;
+  font-weight: 600;
+  font-size: 1.4rem;
+}
+
+.logo:hover h1 {
+  color: #c084fc;
+}
+
+
+nav ul {
+  display: flex;
+  gap: 25px;
+  list-style: none;
+  align-items: center;
+}
+
+nav ul li a {
+  text-decoration: none;
+  color: #333;
+  font-size: 16px;
+}
+
+nav ul li .btn {
+  background-color: #f3f8cc;
+  color: #111;
+  padding: 10px 20px;
+  border-radius: 25px;
+  font-weight: bold;
+  transition: background 0.3s ease;
+}
+
+nav ul li .btn:hover {
+  background-color: #e1ed9f;
+}
+
+/* Hero Section */
+.hero {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  padding: 80px;
+  flex-wrap: wrap;
+}
+
+.hero-image img {
+  width: 800px;
+  border-radius: 20px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+}
+
+.hero-text {
+  max-width: 500px;
+}
+
+.hero-text h2 {
+  font-size: 60px;
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+
+.hero-text p {
+  font-size: 18px;
+  margin-bottom: 30px;
+  color: #444;
+}
+
+.icons {
+  display: flex;
+  gap: 25px;
+  font-size: 15px;
+  color: #333;
+}
+
+/* --- Career Section --- */
+.career-section {
+  background-color: #000;
+  color: #fff;
+  padding: 150px 20px;
+}
+
+.career-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 50px;
+  flex-wrap: wrap;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.career-image img {
+  width: 550px;
+  max-width: 100%;
+  border-radius: 10px;
+}
+
+.career-text {
+  max-width: 600px;
+}
+
+.career-text h2 {
+  font-size: 32px;
+  margin-bottom: 20px;
+}
+
+.career-text p {
+  font-size: 18px;
+  line-height: 1.6;
+}
+
+/* Team Section Styles */
+
+#team {
+  background-color: #000;
+  color: #fff;
+  text-align: center;
+  padding: 80px 20px;
+  font-family: 'Poppins', sans-serif;
+}
+
+#team h1 {
+  font-size: 2.8rem;
+  font-weight: 600;
+  margin-bottom: 0.3rem;
+}
+
+#team h2 {
+  font-size: 2rem;
+  font-weight: 400;
+  margin-bottom: 1.2rem;
+}
+
+#team p {
+  font-size: 1.1rem;
+  color: #ccc;
+  margin: 0 auto 3rem;
+  line-height: 1.7;
+  max-width: 800px;
+}
+
+.team-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 60px;
+  justify-items: center;
+}
+
+.team-member {
+  text-align: center;
+  transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+.team-member:hover {
+  transform: translateY(-5px);
+}
+
+.team-member img {
+  width: 130px;
+  height: 130px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 15px;
+  filter: brightness(75%);
+  transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+.team-member img:hover {
+  filter: brightness(100%);
+  transform: scale(1.05);
+}
+
+.team-member h3 {
+  font-size: 1.2rem;
+  font-weight: 500;
+  margin-bottom: 5px;
+}
+
+.team-member span {
+  font-size: 0.95rem;
+  color: #aaa;
+}
+
+@media (max-width: 768px) {
+  #team h1 {
+    font-size: 2.2rem;
+  }
+  #team h2 {
+    font-size: 1.6rem;
+  }
+  .team-member img {
+    width: 110px;
+    height: 110px;
+  }
+}
+
+
+/* --- Grown Section --- */
+.grown-section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #000;
+  color: #fff;
+  padding: 80px 60px;
+  flex-wrap: wrap;
+  gap: 60px;
+}
+
+.grown-image img {
+  width: 600px;
+  border-radius: 25px;
+  box-shadow: 0 5px 25px rgba(0, 0, 0, 0.5);
+}
+
+.grown-text {
+  max-width: 500px;
+}
+
+.grown-text h2 {
+  font-size: 50px;
+  margin-bottom: 20px;
+  font-weight: 700;
+}
+
+.grown-text p {
+  font-size: 18px;
+  margin-bottom: 30px;
+  color: #ccc;
+  line-height: 1.6;
+}
+
+.grown-buttons {
+  display: flex;
+  gap: 20px;
+}
+
+.btn-green {
+  background: linear-gradient(135deg, #b6c85b, #3d420c);
+  color: #fff;
+  text-decoration: none;
+  padding: 12px 30px;
+  border-radius: 30px;
+  font-weight: 500;
+  transition: opacity 0.3s ease;
+}
+
+.btn-green:hover {
+  opacity: 0.85;
+}
+
+.btn-outline {
+  border: 1px solid #b6c85b;
+  color: #fff;
+  text-decoration: none;
+  padding: 12px 30px;
+  border-radius: 30px;
+  font-weight: 500;
+  transition: background 0.3s ease;
+}
+
+.btn-outline:hover {
+  background: #1c1c1c;
+}
+
+/* --- Footer --- */
+footer {
+  background-color: #1f1f1f;
+  color: white;
+  padding: 40px 0;
+}
+
+.footer-container {
+  width: 90%;
+  max-width: 1200px;
+  margin: auto;
+}
+
+.footer-line {
+  border: none;
+  border-top: 1px solid #444;
+  margin-bottom: 30px;
+}
+
+.footer-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.footer-content h2 {
+  flex: 1;
+  font-size: 20px;
+  text-transform: uppercase;
+  line-height: 1.5;
+}
+
+.footer-nav {
+  display: flex;
+  gap: 25px;
+  flex-wrap: wrap;
+}
+
+.footer-nav a {
+  color: #ccc;
+  text-decoration: none;
+  font-size: 15px;
+  transition: color 0.3s;
+}
+
+.footer-nav a:hover {
+  color: white;
+  text-decoration: underline;
+}
+
+.social-icons {
+  display: flex;
+  gap: 15px;
+}
+
+.social-icons a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  color: white;
+  transition: background 0.3s;
+}
+
+/* Individual platform colors */
+.social-icons a.facebook { background: #3b5998; }
+.social-icons a.twitter { background: #1da1f2; }
+.social-icons a.whatsapp { background: #25d366; }
+.social-icons a.linkedin { background: #0077b5; }
+.social-icons a.youtube { background: #ff0000; }
+
+.social-icons a:hover {
+  opacity: 0.8;
+}
+
+@media (max-width: 900px) {
+  .footer-content {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+}

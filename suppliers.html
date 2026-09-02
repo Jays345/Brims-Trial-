@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Suppliers | BRIMS</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+  :root {
+    --bg: #0f172a;
+    --sidebar: #1e293b;
+    --card: #1e293b;
+    --text: #f1f5f9;
+    --accent: #3b82f6;
+    --success: #22c55e;
+    --danger: #ef4444;
+  }
+
+  :root[data-theme='light'] {
+    --bg: #f8fafc;
+    --sidebar: #e2e8f0;
+    --card: #ffffff;
+    --text: #1e293b;
+    --accent: #2563eb;
+    --success: #16a34a;
+    --danger: #dc2626;
+  }
+
+  body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    display: flex;
+    transition: all 0.3s ease;
+  }
+
+  /* SIDEBAR */
+  .sidebar {
+    width: 220px;
+    background: var(--sidebar);
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    padding-top: 15px;
+    transition: width 0.3s ease;
+    box-shadow: 2px 0 8px rgba(0,0,0,0.2);
+    overflow: hidden;
+    z-index: 999;
+  }
+
+  .sidebar .logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .sidebar .logo img {
+    width: 50px;
+    height: 50px;
+    object-fit: contain;
+    border-radius: 10px;
+  }
+
+  .sidebar ul {
+    list-style: none;
+    padding: 0;
+    margin: 15px 0;
+  }
+
+  .sidebar li {
+    margin: 10px 0;
+  }
+
+  .sidebar a {
+    color: var(--text);
+    text-decoration: none;
+    padding: 12px 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border-radius: 8px;
+    transition: background 0.2s ease;
+  }
+
+  .sidebar a:hover {
+    background: var(--accent);
+    color: #fff;
+  }
+
+  .sidebar.collapsed {
+    width: 60px;
+  }
+
+  .sidebar.collapsed a span {
+    display: none;
+  }
+
+  /* MAIN CONTENT */
+  .main-content {
+    margin-left: 220px;
+    padding: 20px;
+    flex: 1;
+    transition: margin-left 0.3s ease;
+  }
+
+  .sidebar.collapsed + .main-content {
+    margin-left: 60px;
+  }
+
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+  }
+
+  header h1 {
+    font-size: 1.5em;
+  }
+
+  .btn, .logout-btn {
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.2s ease;
+  }
+
+  .btn:hover, .logout-btn:hover {
+    background: #1d4ed8;
+  }
+
+  .logout-btn {
+    text-decoration: none;
+    font-weight: 500;
+  }
+
+  /* CARDS */
+  .cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 20px;
+    margin-bottom: 30px;
+  }
+
+  .card {
+    background: var(--card);
+    padding: 18px;
+    border-radius: 12px;
+    text-align: center;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    transition: all 0.3s ease;
+  }
+
+  .card:hover {
+    transform: translateY(-5px);
+    background: var(--accent);
+    color: #fff;
+  }
+
+  /* SEARCH */
+  #searchInput {
+    padding: 10px;
+    width: 100%;
+    max-width: 350px;
+    border-radius: 8px;
+    border: 1px solid #334155;
+    background: var(--card);
+    color: var(--text);
+    margin-bottom: 20px;
+  }
+
+  /* TABLE */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--card);
+    border-radius: 10px;
+    overflow: hidden;
+  }
+
+  th, td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #334155;
+  }
+
+  th {
+    background: var(--sidebar);
+    color: #fff;
+  }
+
+  tr:hover {
+    background: var(--accent);
+    color: #fff;
+  }
+
+  /* TOAST */
+  .toast {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: #333;
+    color: #fff;
+    padding: 12px 20px;
+    border-radius: 8px;
+    opacity: 0;
+    transition: 0.3s ease;
+    z-index: 1000;
+  }
+
+  .toast.show { opacity: 1; }
+
+  @media (max-width: 768px) {
+    .sidebar { display: none; }
+    .main-content { margin-left: 0; }
+  }
+</style>
+</head>
+
+<body>
+  <div class="sidebar" id="sidebar">
+    <div class="logo">
+      <img src="https://cdn-icons-png.flaticon.com/512/1828/1828673.png" alt="logo" />
+    </div>
+        <ul>
+            <li><a href="index.html"> <span>Dashboard</span></a></li>
+            <li><a href="products.html"> <span>Inventory</span></a></li>
+            <li><a href="suppliers.html"> <span>Suppliers</span></a></li>
+            <li><a href="orders.html"> <span>Orders</span></a></li>
+            <li><a href="reports.html"> <span>Reports</span></a></li>
+            <li><a href="budgets.html"> <span>Budget</span></a></li>
+            <li><a href="request.html"> <span>Help</span></a></li>
+            <li><a href="chat.html"> <span>Chatbot</span></a></li>
+            <li><a href="settings.html"> <span>Settings</span></a></li>
+
+      </ul>
+  </div>
+
+  <div class="main-content">
+    <header>
+      <div>
+        <button id="sidebarToggle" class="btn">☰</button>
+        <button id="themeToggle" class="btn">🌙 Dark Mode</button>
+        <a href="logout.php" class="logout-btn">Logout</a>
+      </div>
+      <h1>Suppliers Overview</h1>
+    </header>
+
+    <div class="cards">
+      <div class="card"><h3>Total Suppliers</h3><p id="totalSuppliers">0</p></div>
+      <div class="card"><h3>Active Suppliers</h3><p id="activeSuppliers">0</p></div>
+      <div class="card"><h3>Pending Contracts</h3><p id="pendingSuppliers">0</p></div>
+      <div class="card"><h3>Top Supplier</h3><p id="topSupplier">N/A</p></div>
+    </div>
+
+    <input type="text" id="searchInput" placeholder="🔍 Search suppliers..." />
+
+    <table id="suppliersTable">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Contact Person</th>
+          <th>Email</th>
+          <th>Phone</th>
+          <th>Address</th>
+          <th>Created At</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+<script>
+const sidebar=document.getElementById('sidebar');
+document.getElementById('sidebarToggle').addEventListener('click',()=>{
+  sidebar.classList.toggle('collapsed');
+  document.querySelector('.main-content').style.marginLeft=sidebar.classList.contains('collapsed')?'60px':'220px';
+});
+const themeBtn=document.getElementById('themeToggle');
+const root=document.documentElement;
+if(localStorage.getItem('theme')==='light'){ root.setAttribute('data-theme','light'); themeBtn.textContent='🌙 Dark Mode'; }
+themeBtn.addEventListener('click',()=>{
+  if(root.getAttribute('data-theme')==='light'){ root.removeAttribute('data-theme'); themeBtn.textContent='☀️ Light Mode'; localStorage.setItem('theme','dark'); }
+  else{ root.setAttribute('data-theme','light'); themeBtn.textContent='🌙 Dark Mode'; localStorage.setItem('theme','light'); }
+});
+function showToast(msg,duration=3000){
+  const toast=document.getElementById('toast');
+  toast.textContent=msg;
+  toast.classList.add('show');
+  setTimeout(()=>toast.classList.remove('show'),duration);
+}
+function fetchSuppliers() {
+  fetch('api/get_suppliers.php')
+    .then(res => res.json())
+    .then(data => {
+      console.log('API response:', data); // Debug: check API output
+
+      // Populate table
+      const tbody = document.querySelector('#suppliersTable tbody');
+      tbody.innerHTML = '';
+      if (Array.isArray(data.suppliers)) {
+        data.suppliers.forEach(s => {
+          const tr = document.createElement('tr');
+          tr.innerHTML = `
+            <td>${s.supplier_name || ''}</td>
+            <td>${s.contact_person || ''}</td>
+            <td>${s.email || ''}</td>
+            <td>${s.phone || ''}</td>
+            <td>${s.address || ''}</td>
+            <td>${s.created_at || ''}</td>
+          `;
+          tbody.appendChild(tr);
+        });
+      }
+
+      // Auto-detect stats keys
+      const stats = data.stats || {};
+      const getStat = (...keys) => {
+        for (let k of keys) {
+          if (stats[k] !== undefined) return stats[k];
+        }
+        return 0;
+      };
+
+      // Update cards
+      const totalSup = getStat('total', 'total_suppliers');
+      const activeSup = getStat('active', 'active_suppliers');
+      const pendingSup = getStat('pending', 'pending_contracts');
+      const topSup = getStat('top_supplier', 'best_supplier', 'topSupplier') || 'N/A';
+
+      const cardTotal = document.getElementById('totalSuppliers');
+      const cardActive = document.getElementById('activeSuppliers');
+      const cardPending = document.getElementById('pendingSuppliers');
+      const cardTop = document.getElementById('topSupplier');
+
+      cardTotal.textContent = totalSup;
+      cardActive.textContent = activeSup;
+      cardPending.textContent = pendingSup;
+      cardTop.textContent = topSup;
+
+      // Apply color logic
+      cardTotal.style.color = 'var(--accent)'; // neutral
+      cardActive.style.color = activeSup > 0 ? 'var(--success)' : 'var(--danger)';
+      cardPending.style.color = pendingSup > 0 ? 'var(--danger)' : 'var(--success)';
+      cardTop.style.color = topSup !== 'N/A' ? 'var(--success)' : 'var(--text)';
+
+      showToast('Suppliers data updated');
+    })
+    .catch(err => console.error('Fetch error:', err));
+}
+
+// Initial fetch + auto-refresh every 30s
+fetchSuppliers();
+setInterval(fetchSuppliers, 30000);
+
+</script>
+</body>
+</html>

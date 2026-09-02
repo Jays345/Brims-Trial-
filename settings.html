@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Account Settings | BRIMS</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+
+<style>
+:root {
+  --accent: #3b82f6;
+  --success: #16a34a;
+}
+
+/* Light theme */
+[data-theme='light'] {
+  --bg: #f8fafc;
+  --card: #ffffff;
+  --text: #1e293b;
+  --border: #e2e8f0;
+}
+
+/* Dark theme */
+[data-theme='dark'] {
+  --bg: #0f172a;
+  --card: #1e293b;
+  --text: #f1f5f9;
+  --border: #334155;
+}
+
+/* Base styles */
+body {
+  font-family: 'Poppins', sans-serif;
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  transition: background 0.3s ease, color 0.3s ease;
+  display: flex;
+}
+
+.logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 15px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.logo img {
+  width: 50px;
+  height: 50px;
+  object-fit: contain;
+  border-radius: 10px;
+}
+
+
+.sidebar {
+  width: 220px;
+  background: var(--sidebar);
+  color: var(--text);
+  height: 100vh;
+  position: fixed;
+  left: 0;
+  top: 0;
+  padding-top: 20px;
+  transition: width 0.3s ease;
+  overflow: hidden;
+}
+
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sidebar ul li {
+  margin: 10px 0;
+}
+
+.sidebar a {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 20px;
+  color: var(--text);
+  text-decoration: none;
+  transition: background 0.3s;
+  white-space: nowrap;
+}
+
+.sidebar a:hover {
+  background: var(--accent);
+  color: #fff;
+}
+
+.sidebar.collapsed {
+  width: 70px;
+}
+
+.sidebar.collapsed h2 {
+  display: none;
+}
+
+.sidebar.collapsed a {
+  justify-content: center;
+  padding: 10px;
+}
+
+.sidebar.collapsed a span {
+  display: none; /* hides the text but keeps icons visible */
+}
+
+.sidebar.collapsed a i {
+  font-size: 18px;
+}
+
+/* Adjust main content when sidebar collapses */
+.main-content {
+  margin-left: 220px;
+  transition: margin-left 0.3s ease;
+}
+
+.sidebar.collapsed + .main-content {
+  margin-left: 70px;
+}
+
+/* MAIN CONTENT */
+.main-content {
+  margin-left: 240px;
+  padding: 25px;
+  flex: 1;
+}
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
+header h1 {
+  font-size: 1.8em;
+  margin: 0;
+}
+.theme-toggle {
+  padding: 8px 12px;
+  border: none;
+  border-radius: 6px;
+  background: var(--accent);
+  color: #fff;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background 0.3s;
+}
+.theme-toggle:hover {
+  opacity: 0.9;
+}
+
+/* ACCOUNT SETTINGS LAYOUT */
+.settings-wrapper {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 20px;
+  margin-top: 25px;
+}
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+  transition: background 0.3s ease, color 0.3s ease;
+}
+.card h2 {
+  margin-top: 0;
+  font-size: 1.2em;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 8px;
+  margin-bottom: 20px;
+}
+.profile-header {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 15px;
+}
+.profile-header img {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+.badge {
+  background: var(--success);
+  color: #fff;
+  border-radius: 20px;
+  padding: 2px 10px;
+  font-size: 0.8em;
+  margin-left: 10px;
+}
+.field {
+  margin-bottom: 15px;
+}
+.field label {
+  font-weight: 600;
+  display: block;
+  margin-bottom: 4px;
+}
+.field input {
+  width: 100%;
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--text);
+}
+.edit-btn {
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 6px 12px;
+  cursor: pointer;
+  font-weight: 500;
+}
+.status-box {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+.status-item {
+  text-align: center;
+  flex: 1;
+  padding: 10px;
+}
+.status-item h3 {
+  margin: 5px 0;
+  font-size: 1.5em;
+}
+.status-item p {
+  margin: 0;
+  color: var(--text);
+}
+
+/* TOAST MESSAGE */
+.toast {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: var(--card);
+  color: var(--text);
+  border: 1px solid var(--border);
+  padding: 12px 18px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  opacity: 0;
+  transform: translateY(20px);
+  transition: 0.3s;
+  z-index: 9999;
+}
+.toast.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* RESPONSIVE */
+@media(max-width: 900px){
+  .settings-wrapper {
+    grid-template-columns: 1fr;
+  }
+  .main-content {
+    margin-left: 0;
+  }
+  .sidebar {
+    display: none;
+  }
+}
+</style>
+</head>
+
+<body data-theme="light">
+
+<div class="sidebar" id="sidebar">
+  <div class="logo">
+    <img src="https://cdn-icons-png.flaticon.com/512/1828/1828673.png" alt="logo" />
+  </div>
+
+      <ul>
+            <li><a href="index.html"> <span>Dashboard</span></a></li>
+            <li><a href="products.html"> <span>Inventory</span></a></li>
+            <li><a href="suppliers.html"> <span>Suppliers</span></a></li>
+            <li><a href="orders.html"> <span>Orders</span></a></li>
+            <li><a href="reports.html"> <span>Reports</span></a></li>
+            <li><a href="budgets.html"> <span>Budget</span></a></li>
+            <li><a href="request.html"> <span>Help</span></a></li>
+            <li><a href="chat.html"> <span>Chatbot</span></a></li>
+            <li><a href="settings.html"> <span>Settings</span></a></li>
+
+      </ul>
+</div>
+
+<!-- MAIN CONTENT -->
+<div class="main-content">
+  <header>
+    <h1>Account Settings</h1>
+    <button class="theme-toggle" id="themeToggle">🌙 Dark Mode</button>
+  </header>
+
+  <p>Manage your account details, security, and service information.</p>
+
+  <div class="settings-wrapper">
+
+    <!-- Profile Details -->
+    <div class="card">
+      <h2>Profile Details</h2>
+      <div class="profile-header">
+        <img src="https://i.pravatar.cc/100" alt="Avatar">
+        <div>
+          <h3 id="profileName">Ethan Mphande <span class="badge">Verified</span></h3>
+          <p id="profileEmail">simeonethanmphande1@gmail.com</p>
+        </div>
+      </div>
+      <div class="field">
+        <label>Full Name</label>
+        <input type="text" id="fullName" value="Ethan Mphande">
+      </div>
+      <div class="field">
+        <label>Email Address</label>
+        <input type="email" id="email" value="simeonethanmphande1@gmail.com">
+      </div>
+      <div class="field">
+        <label>Business Name</label>
+        <input type="text" id="businessName" placeholder="Not provided">
+      </div>
+      <div class="field">
+        <label>Business Website</label>
+        <input type="text" id="businessWebsite" placeholder="Not provided">
+      </div>
+      <button class="edit-btn" id="saveProfile">Save Changes</button>
+    </div>
+
+   <!-- Account Overview -->
+<div class="card">
+  <h2>Account Overview</h2>
+  <div class="status-box">
+    <div class="status-item">
+      <h3 id="activeServices">0</h3>
+      <p>Active Services</p>
+    </div>
+    <div class="status-item">
+      <h3 id="daysActive">0</h3>
+      <p>Days Active</p>
+    </div>
+  </div>
+  <p><b>Account Status:</b> <span id="accountStatus" style="color:var(--success)">Loading...</span></p>
+  <p><b>User ID:</b> <span id="userID">Loading...</span></p>
+  <p><b>Created On:</b> <span id="createdOn">Loading...</span></p>
+  <p><b>Last Updated:</b> <span id="lastUpdated">Loading...</span></p>
+</div>
+
+<!-- Security Status -->
+<div class="card">
+  <h2>Security Status</h2>
+  <p><b>Email Verification:</b> <span id="emailVerification" class="badge">Loading...</span></p>
+  <p><b>Authentication:</b> <span id="authMethod">Loading...</span></p>
+  <p><b>Login Sessions:</b> <span id="loginSessions">Loading...</span></p>
+</div>
+
+
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+
+<script>
+// =============== THEME TOGGLE ==================
+const themeToggle = document.getElementById('themeToggle');
+const body = document.body;
+
+// Load stored theme
+const savedTheme = localStorage.getItem('theme') || 'light';
+body.setAttribute('data-theme', savedTheme);
+themeToggle.textContent = savedTheme === 'dark' ? '☀️ Light Mode' : '🌙 Dark Mode';
+
+themeToggle.addEventListener('click', () => {
+  const currentTheme = body.getAttribute('data-theme');
+  const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+  body.setAttribute('data-theme', newTheme);
+  localStorage.setItem('theme', newTheme);
+  themeToggle.textContent = newTheme === 'dark' ? '☀️ Light Mode' : '🌙 Dark Mode';
+});
+
+// =============== TOAST FUNCTION ==================
+function showToast(message, duration = 3000) {
+  const toast = document.getElementById('toast');
+  toast.textContent = message;
+  toast.classList.add('show');
+  setTimeout(() => toast.classList.remove('show'), duration);
+}
+
+// =============== SAVE PROFILE ==================
+const saveProfileBtn = document.getElementById('saveProfile');
+saveProfileBtn.addEventListener('click', async () => {
+  const name = document.getElementById('fullName').value.trim();
+  const email = document.getElementById('email').value.trim();
+  const businessName = document.getElementById('businessName').value.trim();
+  const businessWebsite = document.getElementById('businessWebsite').value.trim();
+
+  const profileData = { name, email, businessName, businessWebsite };
+
+  try {
+    const response = await fetch("api/save_settings.php", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(profileData)
+    });
+
+    const result = await response.json();
+
+    if (result.status === "success") {
+      document.getElementById('profileName').innerHTML = `${name} <span class="badge">Verified</span>`;
+      document.getElementById('profileEmail').textContent = email;
+      showToast("✅ " + result.message);
+    } else {
+      showToast("⚠️ " + result.message);
+    }
+  } catch (error) {
+    console.error(error);
+    showToast("❌ Failed to connect to the server");
+  }
+});
+
+// =============== LOAD ACCOUNT DATA FROM DB ==================
+window.addEventListener('DOMContentLoaded', async () => {
+  const userId = "cmhhyeerm0001la04hlsyj6y"; // static or dynamically set later
+
+  try {
+    const response = await fetch(`api/get_account_data.php?user_id=${userId}`);
+    const result = await response.json();
+
+    if (result.status === "success") {
+      const user = result.data;
+
+      // Profile Section
+      document.getElementById("profileName").innerHTML = `${user.full_name} <span class="badge ${user.email_verified ? 'verified' : 'unverified'}">${user.email_verified ? 'Verified' : 'Unverified'}</span>`;
+      document.getElementById("profileEmail").textContent = user.email || "—";
+      document.getElementById("fullName").value = user.full_name || "";
+      document.getElementById("email").value = user.email || "";
+      document.getElementById("businessName").value = user.business_name || "";
+      document.getElementById("businessWebsite").value = user.business_website || "";
+
+      // Account Overview
+      document.getElementById("activeServices").textContent = user.active_services ?? 0;
+      document.getElementById("daysActive").textContent = user.days_active ?? 0;
+      document.getElementById("accountStatus").textContent = user.account_status ?? "Active";
+      document.getElementById("userID").textContent = user.user_id ?? "N/A";
+      document.getElementById("createdOn").textContent = new Date(user.created_at).toLocaleString();
+      document.getElementById("lastUpdated").textContent = new Date(user.updated_at).toLocaleString();
+
+      // Security
+      document.getElementById("emailVerification").textContent = user.email_verified ? "Verified ✅" : "Unverified ❌";
+      document.getElementById("authMethod").textContent = user.authentication_method || "—";
+      document.getElementById("loginSessions").textContent = user.login_sessions ?? 0;
+
+    } else {
+      showToast("⚠️ " + result.message);
+    }
+  } catch (error) {
+    console.error(error);
+    showToast("❌ Failed to load account data");
+  }
+});
+</script>
+
+
+</body>
+</html>

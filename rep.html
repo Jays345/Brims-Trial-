@@ -1,0 +1,476 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Brims — Reports Dashboard</title>
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+  <!-- Libraries -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/countup.js@2.0.8/dist/countUp.umd.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css" />
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
+  <style>
+    :root{
+      --bg: #0f172a;
+      --sidebar: #1e293b;
+      --card: #1e293b;
+      --muted: #94a3b8;
+      --accent: #3b82f6;
+      --success: #22c55e;
+      --danger: #ef4444;
+      font-family: 'Poppins', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+    }
+
+    body{
+      background:var(--bg);
+      color:#f1f5f9;
+      margin:0;
+      display:flex;
+      min-height:100vh;
+      transition: background 0.3s, color 0.3s;
+    }
+
+    /* Dark Mode Overrides */
+    body.light {
+      --bg: #f7fafc;
+      --sidebar: #1e293b;
+      --card: #ffffff;
+      --muted: #6b7280;
+      --accent: #2563eb;
+      --success: #16a34a;
+      --danger: #dc2626;
+      color: #0f172a;
+    }
+
+    /* Sidebar */
+    .sidebar{
+      width:240px;
+      background:var(--sidebar);
+      padding:20px 10px;
+      display:flex;
+      flex-direction:column;
+      position:fixed;
+      top:0; left:0; bottom:0;
+      transition: background 0.3s;
+    }
+    .sidebar h2{font-size:18px;text-align:center;margin-bottom:20px;color:white}
+    .sidebar ul{list-style:none;padding:0;margin:0}
+    .sidebar li{margin:10px 0}
+    .sidebar a{display:block;padding:10px 14px;border-radius:8px;color:#e2e8f0;text-decoration:none;transition:background 0.2s}
+    .sidebar a:hover, .sidebar a.active{background:var(--accent);color:white}
+
+    /* Main Container */
+    .container{margin-left:260px;flex:1;padding:28px;transition: background 0.3s, color 0.3s}
+
+    .header{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px}
+    .brand{display:flex;gap:12px;align-items:center}
+    .brand img{width:44px;height:44px;border-radius:8px}
+    .brand h1{font-size:20px;margin:0;color:inherit}
+
+    .grid{display:grid;gap:18px}
+    .kpi-grid{grid-template-columns:repeat(auto-fit, minmax(180px,1fr));}
+    .card{background:var(--card);border-radius:12px;padding:16px;box-shadow:0 6px 18px rgba(0,0,0,0.3);transition: background 0.3s, color 0.3s}
+    .kpi .label{font-size:13px;color:var(--muted)}
+    .kpi .value{font-size:20px;font-weight:700}
+    .kpi .small{font-size:13px;color:var(--muted)}
+
+    .charts{display:grid;grid-template-columns:2fr 1fr;gap:18px}
+    .filters{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+    .filters input, .filters select{padding:8px 10px;border-radius:8px;border:1px solid #334155;background:var(--card);color:inherit;transition: background 0.3s, color 0.3s}
+
+    .toolbar{display:flex;gap:8px}
+    .btn{padding:8px 12px;border-radius:8px;border:none;cursor:pointer;background:var(--accent);color:white;transition: background 0.3s}
+    .btn.secondary{background:#475569}
+
+    table.dataTable{color:inherit !important;background:var(--card);}
+    table.dataTable th, table.dataTable td{color:inherit !important;background:var(--card);}
+    .dataTables_wrapper .dataTables_paginate .paginate_button{color:inherit !important;}
+
+    footer{margin-top:18px;text-align:center;color:var(--muted)}
+  </style>
+</head>
+
+<body>
+  <!-- Sidebar -->
+  <nav class="sidebar">
+    <h2>BRIMS</h2>
+    <ul>
+        <li><a href="index.html"> <span>Dashboard</span></a></li>
+        <li><a href="products.html"> <span>Inventory</span></a></li>
+        <li><a href="suppliers.html"> <span>Suppliers</span></a></li>
+        <li><a href="orders.html"> <span>Orders</span></a></li>
+        <li><a href="reports.html"> <span>Reports</span></a></li>
+        <li><a href="budgets.html"> <span>Budget</span></a></li>
+        <li><a href="request.html"> <span>Help</span></a></li>
+        <li><a href="chat.html"> <span>Chatbot</span></a></li>
+        <li><a href="settings.html"> <span>Settings</span></a></li>
+
+  </ul>
+  </nav>
+
+  <!-- Main Dashboard -->
+  <div class="container">
+    <div class="header">
+      <div class="brand">
+        <img src="https://cdn-icons-png.flaticon.com/512/4645/4645949.png" alt="logo" />
+        <h1>Reports Dashboard</h1>
+      </div>
+      <div class="toolbar">
+        <button class="btn" id="downloadPDF">📄 Export PDF</button>
+        <button class="btn secondary" id="generateReport">⚙️ Generate Report</button>
+        <button class="btn secondary" id="darkModeToggle">🌙 Dark Mode</button>
+      </div>
+    </div>
+
+    <!-- KPI Summary -->
+    <div class="grid kpi-grid">
+      <div class="card kpi"><div class="label">Total Sales</div><div class="value" id="sales">₹124,500</div></div>
+      <div class="card kpi"><div class="label">Total Expenses</div><div class="value" id="expenses">₹38,200</div></div>
+      <div class="card kpi"><div class="label">Profit Margin</div><div class="value" id="profit">₹86,300 (+12%)</div></div>
+      <div class="card kpi"><div class="label">Total Orders</div><div class="value" id="orders">312</div></div>
+      <div class="card kpi"><div class="label">Top Seller</div><div class="value" id="seller">Justin</div></div>
+    </div>
+
+    <br>
+
+    <!-- Charts -->
+    <div class="charts">
+      <div class="card">
+        <h3>Monthly Sales vs Expenses</h3>
+        <canvas id="lineChart"></canvas>
+      </div>
+      <div class="card">
+        <h3>Category Performance</h3>
+        <canvas id="pieChart"></canvas>
+      </div>
+    </div>
+
+    <br>
+
+    <!-- Report History Table -->
+    <div class="card">
+      <h3>Report History</h3>
+      <table id="reportsTable" class="display" style="width:100%">
+        <thead>
+          <tr>
+            <th>Date Range</th>
+            <th>Sales</th>
+            <th>Expenses</th>
+            <th>Profit</th>
+            <th>Top Seller</th>
+            <th>PDF</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Oct 2025</td>
+            <td>₹124,500</td>
+            <td>₹38,200</td>
+            <td>₹86,300</td>
+            <td>Justin</td>
+            <td><button class="btn secondary">📄 Download</button></td>
+          </tr>
+          <tr>
+            <td>Sep 2025</td>
+            <td>₹115,900</td>
+            <td>₹42,700</td>
+            <td>₹73,200</td>
+            <td>Chris</td>
+            <td><button class="btn secondary">📄 Download</button></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <footer>
+      <p>© 2025 BRIMS | Reports Analytics Center</p>
+    </footer>
+  </div>
+
+  <script>
+    // ---------------- Dark Mode ----------------
+    const darkToggle = document.getElementById('darkModeToggle');
+    // Load saved mode
+    if(localStorage.getItem('brimsDarkMode') === 'light') document.body.classList.add('light');
+
+    darkToggle.addEventListener('click', ()=>{
+      document.body.classList.toggle('light');
+      if(document.body.classList.contains('light')){
+        localStorage.setItem('brimsDarkMode','light');
+        darkToggle.textContent='🌙 Dark Mode';
+      } else {
+        localStorage.setItem('brimsDarkMode','dark');
+        darkToggle.textContent='☀️ Light Mode';
+      }
+    });
+
+    darkToggle.textContent = document.body.classList.contains('light') ? '🌙 Dark Mode' : '☀️ Light Mode';
+  </script>
+</body>
+</html>
+     code 2
+     <!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Brims — Reports Dashboard</title>
+
+  <!-- Fonts & Libraries -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css" />
+  <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+
+  <style>
+    :root{
+      --bg: #0f172a; --sidebar: #1e293b; --card: #1e293b;
+      --muted: #94a3b8; --accent: #3b82f6; --success: #22c55e;
+      --danger: #ef4444;
+      font-family: 'Poppins', system-ui, -apple-system, 'Segoe UI', Roboto, Arial;
+    }
+    body{background:var(--bg); color:#f1f5f9; margin:0; display:flex; min-height:100vh; transition: background 0.3s, color 0.3s;}
+    body.light{--bg:#f7fafc; --card:#ffffff; --muted:#6b7280; --accent:#2563eb; --success:#16a34a; --danger:#dc2626; color:#0f172a;}
+
+    /* Sidebar */
+    .sidebar{width:240px; background:var(--sidebar); padding:20px 10px; display:flex; flex-direction:column; position:fixed; top:0; left:0; bottom:0; transition: background 0.3s;}
+    .sidebar h2{font-size:18px;text-align:center;margin-bottom:20px;color:white}
+    .sidebar ul{list-style:none;padding:0;margin:0}
+    .sidebar li{margin:10px 0}
+    .sidebar a{display:block;padding:10px 14px;border-radius:8px;color:#e2e8f0;text-decoration:none;transition:background 0.2s}
+    .sidebar a:hover, .sidebar a.active{background:var(--accent);color:white}
+
+    /* Main Container */
+    .container{margin-left:260px;flex:1;padding:28px;transition: background 0.3s, color 0.3s}
+    .header{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px}
+    .brand{display:flex;gap:12px;align-items:center}
+    .brand img{width:44px;height:44px;border-radius:8px}
+    .brand h1{font-size:20px;margin:0;color:inherit}
+
+    .grid{display:grid;gap:18px}
+    .kpi-grid{grid-template-columns:repeat(auto-fit, minmax(180px,1fr));}
+    .card{background:var(--card);border-radius:12px;padding:16px;box-shadow:0 6px 18px rgba(0,0,0,0.3);transition: background 0.3s, color 0.3s}
+    .kpi .label{font-size:13px;color:var(--muted)}
+    .kpi .value{font-size:20px;font-weight:700}
+    .kpi .small{font-size:13px;color:var(--muted)}
+
+    .charts{display:grid;grid-template-columns:2fr 1fr;gap:18px}
+    .filters{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+    .filters input, .filters select{padding:8px 10px;border-radius:8px;border:1px solid #334155;background:var(--card);color:inherit;transition: background 0.3s, color 0.3s}
+
+    .toolbar{display:flex;gap:8px}
+    .btn{padding:8px 12px;border-radius:8px;border:none;cursor:pointer;background:var(--accent);color:white;transition: background 0.3s}
+    .btn.secondary{background:#475569}
+
+    table.dataTable{color:inherit !important;background:var(--card);}
+    table.dataTable th, table.dataTable td{color:inherit !important;background:var(--card);}
+    .dataTables_wrapper .dataTables_paginate .paginate_button{color:inherit !important;}
+
+    footer{margin-top:18px;text-align:center;color:var(--muted)}
+  </style>
+</head>
+
+<body>
+  <!-- Sidebar -->
+  <nav class="sidebar">
+    <h2>BRIMS</h2>
+    <ul>
+      <li><a href="index.html">🏠 Dashboard</a></li>
+      <li><a href="products.html">📦 Products</a></li>
+      <li><a href="suppliers.html">🚚 Suppliers</a></li>
+      <li><a href="orders.html">📝 Orders</a></li>
+      <li><a href="reports.html" class="active">📊 Reports</a></li>
+      <li><a href="settings.html">⚙️ Settings</a></li>
+    </ul>
+  </nav>
+
+  <!-- Main Dashboard -->
+  <div class="container">
+    <div class="header">
+      <div class="brand">
+        <img src="https://cdn-icons-png.flaticon.com/512/4645/4645949.png" alt="logo" />
+        <h1>Reports Dashboard</h1>
+      </div>
+      <div class="toolbar">
+        <button class="btn" id="downloadPDF">📄 Export PDF</button>
+        <button class="btn secondary" id="generateReport">⚙️ Generate Report</button>
+        <button class="btn secondary" id="darkModeToggle">🌙 Dark Mode</button>
+      </div>
+    </div>
+
+    <!-- KPI Summary -->
+    <div class="grid kpi-grid">
+      <div class="card kpi"><div class="label">Total Sales</div><div class="value" id="sales">Loading...</div></div>
+      <div class="card kpi"><div class="label">Total Expenses</div><div class="value" id="expenses">Loading...</div></div>
+      <div class="card kpi"><div class="label">Profit Margin</div><div class="value" id="profit">Loading...</div></div>
+      <div class="card kpi"><div class="label">Total Orders</div><div class="value" id="orders">Loading...</div></div>
+      <div class="card kpi"><div class="label">Top Seller</div><div class="value" id="seller">Loading...</div></div>
+    </div>
+
+    <br>
+
+    <!-- Charts -->
+    <div class="charts">
+      <div class="card">
+        <h3>Monthly Sales vs Expenses</h3>
+        <canvas id="lineChart"></canvas>
+      </div>
+      <div class="card">
+        <h3>Category Performance</h3>
+        <canvas id="pieChart"></canvas>
+      </div>
+    </div>
+
+    <br>
+
+    <!-- Report History Table -->
+    <div class="card">
+      <h3>Report History</h3>
+      <table id="reportsTable" class="display" style="width:100%">
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Sales</th>
+            <th>Expenses</th>
+            <th>Profit</th>
+            <th>Top Seller</th>
+            <th>PDF</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+
+    <footer>
+      <p>© 2025 BRIMS | Reports Analytics Center</p>
+    </footer>
+  </div>
+
+  <script>
+    // --------- Dark Mode ---------
+    const darkToggle = document.getElementById('darkModeToggle');
+    if(localStorage.getItem('brimsDarkMode') === 'light') document.body.classList.add('light');
+    darkToggle.addEventListener('click', ()=>{
+      document.body.classList.toggle('light');
+      if(document.body.classList.contains('light')){
+        localStorage.setItem('brimsDarkMode','light'); darkToggle.textContent='🌙 Dark Mode';
+      } else { localStorage.setItem('brimsDarkMode','dark'); darkToggle.textContent='☀️ Light Mode'; }
+    });
+    darkToggle.textContent = document.body.classList.contains('light') ? '🌙 Dark Mode' : '☀️ Light Mode';
+
+    // --------- Load KPIs and Charts ---------
+    fetch('kpi.php')
+      .then(res => res.json())
+      .then(data => {
+        // KPIs
+        document.getElementById('sales').textContent = `₹${data.kpis.totalSales}`;
+        document.getElementById('orders').textContent = data.kpis.totalOrders;
+        const profit = data.kpis.totalSales - (data.kpis.totalExpenses ?? 0);
+        document.getElementById('profit').textContent = `₹${profit}`;
+        document.getElementById('seller').textContent = Object.keys(data.staff)[0] ?? 'N/A';
+        document.getElementById('expenses').textContent = `₹${data.kpis.totalExpenses ?? 0}`;
+
+        // Line Chart
+        const ctxLine = document.getElementById('lineChart').getContext('2d');
+        new Chart(ctxLine, {
+          type: 'line',
+          data: {
+            labels: data.monthly.labels,
+            datasets: [
+              { label: 'Sales', data: data.monthly.sales, borderColor: '#3b82f6', fill: false },
+              { label: 'Expenses', data: data.monthly.expenses, borderColor: '#ef4444', fill: false }
+            ]
+          }
+        });
+
+        // Pie Chart
+        const ctxPie = document.getElementById('pieChart').getContext('2d');
+        new Chart(ctxPie, {
+          type: 'pie',
+          data: {
+            labels: Object.keys(data.categories),
+            datasets: [{ data: Object.values(data.categories), backgroundColor: ['#3b82f6','#ef4444','#22c55e','#facc15'] }]
+          }
+        });
+      });
+
+    // --------- Load Report History Table ---------
+    $(document).ready(function(){
+      const table = $('#reportsTable').DataTable();
+
+      fetch('reports.php')
+        .then(res => res.json())
+        .then(data => {
+          table.clear();
+          data.forEach(r => {
+            const profit = (r.total_sales ?? 0) - (r.total_expenses ?? 0);
+            table.row.add([
+              r.generated_at,
+              `₹${r.total_sales ?? 0}`,
+              `₹${r.total_expenses ?? 0}`,
+              `₹${profit}`,
+              r.top_seller ?? 'N/A',
+              '<button class="btn secondary">📄 Download</button>'
+            ]);
+          });
+          table.draw();
+        });
+    });
+    // --------- Generate Report Button ---------
+const generateBtn = document.getElementById('generateReport');
+generateBtn.addEventListener('click', () => {
+  generateBtn.disabled = true;
+  generateBtn.textContent = '⏳ Generating...';
+
+  fetch('generateReport.php')
+    .then(res => res.json())
+    .then(resp => {
+      generateBtn.disabled = false;
+      generateBtn.textContent = '⚙️ Generate Report';
+
+      if(resp.success){
+        alert('✅ Report generated successfully!');
+        // Refresh report history table
+        const table = $('#reportsTable').DataTable();
+        fetch('reports.php')
+          .then(res => res.json())
+          .then(data => {
+            table.clear();
+            data.forEach(r => {
+              const profit = (r.total_sales ?? 0) - (r.total_expenses ?? 0);
+              table.row.add([
+                r.generated_at,
+                `₹${r.total_sales ?? 0}`,
+                `₹${r.total_expenses ?? 0}`,
+                `₹${profit}`,
+                r.top_seller ?? 'N/A',
+                '<button class="btn secondary">📄 Download</button>'
+              ]);
+            });
+            table.draw();
+          });
+      } else {
+        alert('❌ Failed to generate report: ' + (resp.error ?? 'Unknown error'));
+      }
+    })
+    .catch(err => {
+      generateBtn.disabled = false;
+      generateBtn.textContent = '⚙️ Generate Report';
+      alert('❌ Error generating report: ' + err);
+    });
+});
+
+  </script>
+</body>
+</html>

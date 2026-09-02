@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Staff Dashboard | BRIMS</title>
+
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet" />
+
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <!-- CSS File -->
+  <link rel="stylesheet" href="css/dashboard.css" />
+</head>
+<body>
+
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <div>
+      <div class="logo">
+        <img src="https://cdn-icons-png.flaticon.com/512/1828/1828673.png" alt="logo">
+        <h2>BRIMS</h2>
+      </div>
+      <nav>
+        <ul>
+          <li><a href="#" class="active">Dashboard</a></li>
+          <li><a href="#">Users</a></li>
+          <li><a href="#">Products</a></li>
+          <li><a href="#">Orders</a></li>
+          <li><a href="#">Suppliers</a></li>
+          <li><a href="#">Resources</a></li>
+          <li><a href="#">Reports</a></li>
+        </ul>
+      </nav>
+    </div>
+    <footer>© 2025 BRIMS</footer>
+  </div>
+
+  <!-- Main Content -->
+  <div class="main-content">
+<header>
+  <h1>STAFF Dashboard</h1>
+  <div class="user-info">
+    <span>Welcome, Staff</span>
+    <img src="https://i.pravatar.cc/40" alt="User" />
+    <!-- Logout Button -->
+    <a href="logout.php" class="logout-btn">Logout</a>
+  </div>
+</header>
+
+
+    <!-- Stat Cards -->
+    <div class="cards">
+      <div class="card">
+        <h3>Total Products</h3>
+        <p>1,245</p>
+      </div>
+      <div class="card">
+        <h3>Total Suppliers</h3>
+        <p>58</p>
+      </div>
+      <div class="card">
+        <h3>Open Orders</h3>
+        <p>74</p>
+      </div>
+      <div class="card">
+        <h3>Total Revenue</h3>
+        <p>$93,400</p>
+      </div>
+    </div>
+
+    <!-- Chart Section -->
+    <div class="chart-container">
+      <h2>Monthly Profit Overview</h2>
+      <canvas id="profitChart" height="100"></canvas>
+    </div>
+
+    <!-- Table Section -->
+    <h2>Low Stock Alerts</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Product</th>
+          <th>SKU</th>
+          <th>Stock</th>
+          <th>Category</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Printer Ink</td><td>PRT-001</td><td>3</td><td>Supplies</td></tr>
+        <tr><td>Office Paper A4</td><td>OFP-032</td><td>5</td><td>Stationery</td></tr>
+        <tr><td>Scanner</td><td>SCN-006</td><td>2</td><td>Electronics</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Chart Script -->
+  <script>
+    const ctx = document.getElementById('profitChart');
+    new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'],
+        datasets: [{
+          label: 'Revenue',
+          data: [12000, 15000, 11000, 18000, 22000, 19000, 25000],
+          borderColor: '#b388ff',
+          fill: false,
+          tension: 0.4
+        },
+        {
+          label: 'Profit',
+          data: [4000, 6000, 5000, 7000, 10000, 8000, 12000],
+          borderColor: '#6a00f4',
+          fill: false,
+          tension: 0.4
+        }]
+      },
+      options: {
+        plugins: {
+          legend: {
+            labels: { color: '#fff' }
+          }
+        },
+        scales: {
+          x: { ticks: { color: '#bbb' } },
+          y: { ticks: { color: '#bbb' } }
+        }
+      }
+    });
+  </script>
+</body>
+</html>

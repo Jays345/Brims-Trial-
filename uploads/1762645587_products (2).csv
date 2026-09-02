@@ -1,0 +1,229 @@
+SKU,Product Name,Category,Supplier,Cost,Selling,Stock,Created At
+undefined,Flower Pot Set,Books & Education,Metro Goods,16.00,22.99,70,2025-03-25
+undefined,Lawn Mower,Books & Education,BrightMart Ltd,200.00,250.00,10,2025-03-24
+undefined,Plant Fertilizer 5kg,Books & Education,NextGen Supplies,12.00,18.50,55,2025-03-23
+undefined,Outdoor Chair Set,Books & Education,Urban Traders,110.00,150.00,20,2025-03-22
+undefined,Garden Hose 30m,Books & Education,Global Distributors,18.00,25.00,45,2025-03-21
+undefined,Pearl Earrings,Office & Furniture,Brightline Wholesalers,55.00,75.00,30,2025-03-20
+undefined,Luxury Watch,Office & Furniture,Vista Distributors,360.00,450.00,12,2025-03-19
+undefined,Diamond Ring,Office & Furniture,Apex Traders,490.00,599.00,10,2025-03-18
+undefined,Silver Bracelet,Office & Furniture,Prime Imports,65.00,89.00,25,2025-03-17
+undefined,Gold Necklace,Office & Furniture,Metro Supplies,250.00,299.99,15,2025-03-16
+undefined,Dog Collar,Food Essentials,Supplier Five,5.00,7.99,100,2025-03-15
+undefined,Bird Feeder,Food Essentials,Supplier Four,8.00,12.00,40,2025-03-14
+undefined,Pet Shampoo,Food Essentials,Supplier Three,6.00,9.50,80,2025-03-13
+undefined,Cat Litter 5kg,Food Essentials,Supplier Two,13.00,20.00,75,2025-03-12
+undefined,Dog Food 10kg,Food Essentials,Supplier One,25.00,35.00,50,2025-03-11
+undefined,Stapler with Pins,Apparel,Metro Goods,3.50,5.50,120,2025-03-10
+undefined,Highlighters (Set of 5),Apparel,BrightMart Ltd,3.00,4.99,100,2025-03-09
+undefined,Printer Paper 500 Sheets,Apparel,NextGen Supplies,4.50,6.50,150,2025-03-08
+undefined,Ballpoint Pens (Pack of 10),Apparel,Urban Traders,2.50,3.99,180,2025-03-07
+undefined,Notebook A5,Apparel,Global Distributors,1.50,2.50,200,2025-03-06
+undefined,Vacuum Cleaner,Home Electronics,Brightline Wholesalers,100.00,130.00,20,2025-03-05
+undefined,Electric Kettle,Home Electronics,Vista Distributors,20.00,29.99,70,2025-03-04
+undefined,Toaster 2-Slice,Home Electronics,Apex Traders,25.00,35.99,60,2025-03-03
+undefined,Microwave Oven,Home Electronics,Prime Imports,95.00,120.00,25,2025-03-02
+undefined,Blender 1.5L,Home Electronics,Metro Supplies,50.00,65.00,40,2025-03-01
+undefined,Puzzle 1000 Pieces,Learning Materials,Supplier Five,13.00,20.00,90,2025-02-28
+undefined,Doll House,Learning Materials,Supplier Four,32.00,45.00,30,2025-02-27
+undefined,Toy Car,Learning Materials,Supplier Three,5.50,8.99,120,2025-02-26
+undefined,Board Game - Monopoly,Learning Materials,Supplier Two,22.00,35.00,50,2025-02-25
+undefined,LEGO Classic Set,Learning Materials,Supplier One,40.00,55.00,60,2025-02-24
+undefined,First Aid Kit,Office Essentials,Metro Goods,17.00,25.00,75,2025-02-23
+undefined,Blood Pressure Monitor,Office Essentials,BrightMart Ltd,45.00,59.99,45,2025-02-22
+undefined,Digital Thermometer,Office Essentials,NextGen Supplies,6.50,10.99,90,2025-02-21
+undefined,Protein Powder 1kg,Office Essentials,Urban Traders,35.00,49.99,80,2025-02-20
+undefined,Vitamin C Tablets,Office Essentials,Global Distributors,9.00,14.99,100,2025-02-19
+undefined,LED Headlights,Food & Beverages,Brightline Wholesalers,55.00,75.00,35,2025-02-18
+undefined,Windshield Wipers,Food & Beverages,Vista Distributors,9.00,12.99,65,2025-02-17
+undefined,Car Floor Mats,Food & Beverages,Apex Traders,18.00,25.00,45,2025-02-16
+undefined,Engine Oil 1L,Food & Beverages,Prime Imports,6.50,8.99,90,2025-02-15
+undefined,Car Air Freshener,Food & Beverages,Metro Supplies,3.00,5.50,150,2025-02-14
+undefined,Cycling Helmet,Fashion,Supplier Five,25.00,35.99,60,2025-02-13
+undefined,Football Size 5,Fashion,Supplier Four,13.00,20.00,70,2025-02-12
+undefined,Tennis Racket,Fashion,Supplier Three,48.00,65.50,40,2025-02-11
+undefined,Dumbbell Set 10kg,Fashion,Supplier Two,35.00,45.99,55,2025-02-10
+undefined,Yoga Mat,Fashion,Supplier One,17.00,25.00,80,2025-02-09
+undefined,Perfume Spray 100ml,Appliances,Metro Goods,40.00,55.00,50,2025-02-08
+undefined,Hair Conditioner,Appliances,BrightMart Ltd,7.00,10.99,75,2025-02-07
+undefined,Shampoo 500ml,Appliances,NextGen Supplies,6.50,9.99,85,2025-02-06
+undefined,Moisturizer Cream,Appliances,Urban Traders,8.00,12.50,100,2025-02-05
+undefined,Facial Cleanser,Appliances,Global Distributors,10.00,15.99,65,2025-02-04
+undefined,Self Help Journal,Books,Brightline Wholesalers,4.00,7.50,90,2025-02-03
+undefined,Python Programming Book,Books,Vista Distributors,25.00,35.00,50,2025-02-02
+undefined,1984 by George Orwell,Books,Apex Traders,6.00,9.99,80,2025-02-01
+undefined,To Kill a Mockingbird,Books,Prime Imports,7.00,10.50,75,2025-01-31
+undefined,The Great Gatsby,Books,Metro Supplies,8.00,12.99,60,2025-01-30
+undefined,Bed Frame Queen Size,Furniture,Supplier Five,350.00,450.00,15,2025-01-29
+undefined,Dining Table Set,Furniture,Supplier Four,390.00,499.99,20,2025-01-28
+undefined,Bookshelf 5-Tier,Furniture,Supplier Three,85.00,120.00,40,2025-01-27
+undefined,Wooden Desk,Furniture,Supplier Two,190.00,250.00,25,2025-01-26
+undefined,Office Chair,Furniture,Supplier One,110.00,149.99,30,2025-01-25
+undefined,Green Tea Pack,Groceries,Metro Goods,3.00,5.49,90,2025-01-24
+undefined,Corn Flakes 1kg,Groceries,BrightMart Ltd,4.50,6.99,65,2025-01-23
+undefined,Organic Honey 500ml,Groceries,NextGen Supplies,5.50,8.50,75,2025-01-22
+undefined,Olive Oil 1L,Groceries,Urban Traders,6.00,9.99,110,2025-01-21
+undefined,Basmati Rice 10kg,Groceries,Global Distributors,12.00,18.50,95,2025-01-20
+undefined,Casual T-Shirt,Clothing,Brightline Wholesalers,15.00,25.00,200,2025-01-19
+undefined,Leather Handbag,Clothing,Vista Distributors,90.00,130.00,50,2025-01-18
+undefined,Running Sneakers,Clothing,Apex Traders,65.00,89.99,85,2025-01-17
+undefined,Women’s Summer Dress,Clothing,Prime Imports,30.00,45.50,140,2025-01-16
+undefined,Men’s Denim Jacket,Clothing,Metro Supplies,40.00,59.99,120,2025-01-15
+undefined,Sony WH-1000XM5 Headphones,Electronics,Supplier Five,280.00,349.99,60,2025-01-14
+undefined,Lenovo ThinkPad X1,Electronics,Supplier Four,1000.00,1199.00,18,2025-01-13
+undefined,Apple iPhone 14,Electronics,Supplier Three,950.00,1099.00,27,2025-01-12
+undefined,HP Pavilion Laptop,Electronics,Supplier Two,850.00,999.00,32,2025-01-11
+undefined,Samsung Galaxy S23,Electronics,Supplier One,650.00,799.99,45,2025-01-10
+undefined,Monitor 27inch,Electronics,Supplier Three,140.00,240.00,6,2025-04-29
+undefined,Monitor 24inch,Electronics,Supplier Three,120.00,200.00,7,2025-04-28
+undefined,Study Desk,Furniture,Supplier Five,100.00,170.00,5,2025-04-27
+undefined,Mango Juice 1L,Groceries,Supplier Five,3.00,6.00,110,2025-04-26
+undefined,Apple Juice 1L,Groceries,Supplier Five,3.00,6.00,120,2025-04-25
+undefined,Casual Sneakers,Clothing,Supplier Four,20.00,48.00,22,2025-04-24
+undefined,Formal Shoes,Clothing,Supplier Four,25.00,60.00,20,2025-04-23
+undefined,Wireless Mouse,Electronics,Supplier Two,12.00,25.00,30,2025-04-22
+undefined,Mechanical Keyboard,Electronics,Supplier One,25.00,45.00,25,2025-04-21
+undefined,LG Smart TV 65",Electronics,Supplier Two,700.00,1080.00,3,2025-04-20
+undefined,Samsung Smart TV 55",Electronics,Supplier One,520.00,820.00,5,2025-04-19
+undefined,Book: Artificial Intelligence,Books,Supplier Two,16.00,35.00,18,2025-04-18
+undefined,Book: Machine Learning,Books,Supplier Two,14.00,30.00,25,2025-04-17
+undefined,Leather Office Chair,Furniture,Supplier Five,120.00,210.00,8,2025-04-16
+undefined,Desk Organizer,Furniture,Supplier Five,15.00,28.00,20,2025-04-15
+undefined,Cheese 250g,Groceries,Supplier Five,2.00,6.00,50,2025-04-14
+undefined,Butter 500g,Groceries,Supplier Five,3.00,7.00,60,2025-04-13
+undefined,Winter Jacket,Clothing,Supplier Four,35.00,75.00,15,2025-04-12
+undefined,Casual Dress,Clothing,Supplier Four,20.00,42.00,22,2025-04-11
+undefined,Scanner Epson,Electronics,Supplier Two,160.00,260.00,5,2025-04-10
+undefined,Printer Canon LBP,Electronics,Supplier One,200.00,320.00,6,2025-04-09
+undefined,iPad Mini 6,Electronics,Supplier One,350.00,520.00,10,2025-04-08
+undefined,Tablet Lenovo Tab M10,Electronics,Supplier Three,220.00,350.00,14,2025-04-07
+undefined,Pen Set Blue,Books,Supplier Two,2.00,5.00,180,2025-04-06
+undefined,Notebook Set,Books,Supplier Two,3.00,6.00,150,2025-04-05
+undefined,Wooden Cupboard,Furniture,Supplier Five,150.00,250.00,6,2025-04-04
+undefined,Desk Lamp,Furniture,Supplier Five,18.00,35.00,14,2025-04-03
+undefined,Coffee 500g,Groceries,Supplier Five,8.00,15.00,75,2025-04-02
+undefined,Green Tea 100pcs,Groceries,Supplier Five,4.00,8.00,110,2025-04-01
+undefined,Wheat Flour 5kg,Groceries,Supplier Five,6.00,12.00,90,2025-03-31
+undefined,Running Shoes,Clothing,Supplier Four,22.00,50.00,25,2025-03-30
+undefined,Formal Pants,Clothing,Supplier Four,15.00,35.00,32,2025-03-29
+undefined,Microwave Oven,Electronics,Supplier One,150.00,250.00,9,2025-03-28
+undefined,Smartwatch Series Z,Electronics,Supplier Two,120.00,200.00,18,2025-03-27
+undefined,Wireless Earbuds,Electronics,Supplier One,35.00,65.00,30,2025-03-26
+undefined,Book: Cybersecurity 101,Books,Supplier Two,11.00,25.00,20,2025-03-25
+undefined,Book: Data Analytics,Books,Supplier Two,10.00,22.00,35,2025-03-24
+undefined,Book: Learn C Programming,Books,Supplier Two,7.00,15.00,40,2025-03-23
+undefined,Filing Drawer,Furniture,Supplier Five,90.00,180.00,10,2025-03-22
+undefined,Office Chair,Furniture,Supplier Five,60.00,130.00,12,2025-03-21
+undefined,Office Table,Furniture,Supplier Five,180.00,320.00,8,2025-03-20
+undefined,Cooking Oil 2L,Groceries,Supplier Five,5.00,10.00,150,2025-03-19
+undefined,Sugar 1kg,Groceries,Supplier Five,1.00,3.00,200,2025-03-18
+undefined,Sneakers Grey,Clothing,Supplier Four,28.00,55.00,28,2025-03-17
+undefined,Denim Jeans,Clothing,Supplier Four,20.00,45.00,35,2025-03-16
+undefined,Ladies Hoodie,Clothing,Supplier Four,12.00,30.00,40,2025-03-15
+undefined,Men T-Shirt Black,Clothing,Supplier Four,7.00,18.00,60,2025-03-14
+undefined,Acer Aspire 5,Electronics,Supplier Three,800.00,1150.00,9,2025-03-13
+undefined,HP Envy Laptop,Electronics,Supplier Three,950.00,1350.00,7,2025-03-12
+undefined,Sony Bluetooth Speaker,Electronics,Supplier Two,90.00,160.00,25,2025-03-11
+undefined,Samsung Refrigerator,Electronics,Supplier One,480.00,750.00,10,2025-03-10
+undefined,Dell Monitor 27inch,Electronics,Supplier One,130.00,220.00,7,2025-04-01
+undefined,HP Monitor 24inch,Electronics,Supplier Two,100.00,180.00,8,2025-03-31
+undefined,Study Desk,Furniture,Supplier Five,90.00,170.00,6,2025-03-30
+undefined,Mango Juice 1L,Groceries,Supplier Four,3.00,6.00,90,2025-03-29
+undefined,Orange Juice 1L,Groceries,Supplier Four,3.00,6.00,100,2025-03-28
+undefined,Leather Boots,Clothing,Supplier Three,35.00,75.00,12,2025-03-27
+undefined,Running Shoes,Clothing,Supplier Three,25.00,55.00,20,2025-03-26
+undefined,Wireless Mouse,Electronics,Supplier Two,10.00,25.00,25,2025-03-25
+undefined,Mechanical Keyboard,Electronics,Supplier One,25.00,45.00,20,2025-03-24
+undefined,LG TV 65inch,Electronics,Supplier Two,720.00,1100.00,3,2025-03-23
+undefined,Samsung TV 55inch,Electronics,Supplier One,600.00,950.00,4,2025-03-22
+undefined,Book: Cloud Computing,Books,Supplier Two,14.00,30.00,30,2025-03-21
+undefined,Book: AI Foundations,Books,Supplier Two,12.00,28.00,35,2025-03-20
+undefined,Ergonomic Chair,Furniture,Supplier Five,90.00,160.00,10,2025-03-19
+undefined,Desk Lamp,Furniture,Supplier Five,18.00,35.00,15,2025-03-18
+undefined,Cheddar Cheese 500g,Groceries,Supplier Four,5.00,9.00,50,2025-03-17
+undefined,Butter 250g,Groceries,Supplier Four,2.00,4.00,60,2025-03-16
+undefined,Winter Coat,Clothing,Supplier Three,35.00,80.00,10,2025-03-15
+undefined,Casual Dress,Clothing,Supplier Three,20.00,45.00,25,2025-03-14
+undefined,Epson Scanner,Electronics,Supplier Two,160.00,260.00,6,2025-03-13
+undefined,Canon Printer,Electronics,Supplier One,180.00,280.00,7,2025-03-12
+undefined,Tablet Apple Mini,Electronics,Supplier One,320.00,480.00,8,2025-03-11
+undefined,Tablet Lenovo,Electronics,Supplier Two,250.00,400.00,10,2025-03-10
+undefined,Pen Blue Pack,Books,Supplier Two,2.00,5.00,200,2025-03-09
+undefined,Notebook A4,Books,Supplier Two,1.00,3.00,150,2025-03-08
+undefined,Wooden Shelf,Furniture,Supplier Five,100.00,180.00,6,2025-03-07
+undefined,Office Lamp,Furniture,Supplier Five,20.00,40.00,15,2025-03-06
+undefined,Ground Coffee 500g,Groceries,Supplier Four,6.00,11.00,70,2025-03-05
+undefined,Tea Bags 100pcs,Groceries,Supplier Four,4.00,8.00,90,2025-03-04
+undefined,Flour 5kg,Groceries,Supplier Four,7.00,12.00,120,2025-03-03
+undefined,Sneakers White,Clothing,Supplier Three,28.00,60.00,20,2025-03-02
+undefined,Formal Trousers,Clothing,Supplier Three,15.00,35.00,30,2025-03-01
+undefined,Microwave Oven,Electronics,Supplier One,150.00,250.00,8,2025-02-28
+undefined,Smartwatch Pro,Electronics,Supplier Two,95.00,150.00,18,2025-02-27
+undefined,Bluetooth Earbuds,Electronics,Supplier One,45.00,75.00,20,2025-02-26
+undefined,Book: Learn Java,Books,Supplier Two,8.00,18.00,28,2025-02-25
+undefined,Book: Networking Basics,Books,Supplier Two,10.00,22.00,30,2025-02-24
+undefined,Book: Data Science 101,Books,Supplier Two,9.00,20.00,25,2025-02-23
+undefined,Filing Cabinet,Furniture,Supplier Five,120.00,250.00,8,2025-02-22
+undefined,Office Chair Deluxe,Furniture,Supplier Five,80.00,150.00,10,2025-02-21
+undefined,Executive Desk,Furniture,Supplier Five,250.00,450.00,4,2025-02-20
+undefined,Cooking Oil 1L,Groceries,Supplier Four,2.00,5.00,150,2025-02-19
+undefined,Sugar 2kg,Groceries,Supplier Four,3.00,6.00,80,2025-02-18
+undefined,Denim Jacket,Clothing,Supplier Three,35.00,70.00,15,2025-02-17
+undefined,Slim Fit Jeans,Clothing,Supplier Three,22.00,45.00,25,2025-02-16
+undefined,Hoodie Grey,Clothing,Supplier Three,18.00,40.00,35,2025-02-15
+undefined,Cotton Shirt,Clothing,Supplier Three,10.00,25.00,45,2025-02-14
+undefined,Lenovo ThinkPad,Electronics,Supplier Two,850.00,1200.00,5,2025-02-13
+undefined,HP Pavilion Laptop,Electronics,Supplier One,800.00,1150.00,6,2025-02-12
+undefined,Sony Speaker,Electronics,Supplier Two,120.00,200.00,15,2025-02-11
+undefined,LG Refrigerator,Electronics,Supplier One,400.00,650.00,10,2025-02-10
+undefined,Monitor 27inch,Electronics,Supplier One,150.00,250.00,8,2025-03-02
+undefined,Monitor 24inch,Electronics,Supplier Two,120.00,200.00,10,2025-03-01
+undefined,Desk Wooden,Furniture,Supplier Five,100.00,200.00,7,2025-02-28
+undefined,Juice Apple 1L,Groceries,Supplier Four,3.00,5.00,90,2025-02-27
+undefined,Juice Orange 1L,Groceries,Supplier Four,3.00,5.00,100,2025-02-26
+undefined,Shoes Casual,Clothing,Supplier Three,20.00,50.00,20,2025-02-25
+undefined,Shoes Formal,Clothing,Supplier Three,25.00,60.00,18,2025-02-24
+undefined,Mouse Wireless,Electronics,Supplier Two,15.00,30.00,30,2025-02-23
+undefined,Keyboard Mechanical,Electronics,Supplier One,20.00,40.00,25,2025-02-22
+undefined,Smart TV 65inch,Electronics,Supplier Two,700.00,1100.00,3,2025-02-21
+undefined,Smart TV 50inch,Electronics,Supplier One,500.00,800.00,5,2025-02-20
+undefined,Book: Machine Learning,Books,Supplier Two,15.00,30.00,30,2025-02-19
+undefined,Book: AI Basics,Books,Supplier Two,12.00,25.00,40,2025-02-18
+undefined,Chair Office,Furniture,Supplier Five,35.00,70.00,12,2025-02-17
+undefined,Lamp Table,Furniture,Supplier Five,25.00,50.00,10,2025-02-16
+undefined,Cheese 500g,Groceries,Supplier Four,5.00,10.00,50,2025-02-15
+undefined,Butter 500g,Groceries,Supplier Four,3.00,6.00,60,2025-02-14
+undefined,Dress Winter,Clothing,Supplier Three,30.00,60.00,15,2025-02-13
+undefined,Dress Summer,Clothing,Supplier Three,25.00,50.00,20,2025-02-12
+undefined,Camera Nikon,Electronics,Supplier Two,380.00,580.00,10,2025-02-11
+undefined,Camera Canon,Electronics,Supplier One,400.00,600.00,8,2025-02-10
+undefined,Tablet Apple,Electronics,Supplier One,350.00,500.00,12,2025-02-09
+undefined,Tablet Samsung,Electronics,Supplier Two,300.00,450.00,15,2025-02-08
+undefined,Pen Pack,Books,Supplier Two,1.00,3.00,200,2025-02-07
+undefined,Notebook,Books,Supplier Two,2.00,5.00,100,2025-02-06
+undefined,Cupboard,Furniture,Supplier Five,150.00,250.00,5,2025-02-05
+undefined,Bookshelf,Furniture,Supplier Five,120.00,200.00,8,2025-02-04
+undefined,Coffee Beans 1kg,Groceries,Supplier Four,10.00,18.00,80,2025-02-03
+undefined,Eggs 12pcs,Groceries,Supplier Four,2.00,4.00,150,2025-02-02
+undefined,Milk 1L,Groceries,Supplier Four,1.00,2.00,200,2025-02-01
+undefined,Sneakers,Clothing,Supplier Three,30.00,70.00,18,2025-01-31
+undefined,Jacket Leather,Clothing,Supplier Three,40.00,90.00,12,2025-01-30
+undefined,Smartwatch,Electronics,Supplier One,100.00,160.00,20,2025-01-29
+undefined,Bluetooth Speaker,Electronics,Supplier Two,30.00,55.00,15,2025-01-28
+undefined,Headphones,Electronics,Supplier One,50.00,80.00,25,2025-01-27
+undefined,Book: HTML & CSS,Books,Supplier Two,7.00,18.00,35,2025-01-26
+undefined,Book: Python,Books,Supplier Two,10.00,25.00,20,2025-01-25
+undefined,Book: JavaScript,Books,Supplier Two,8.00,20.00,30,2025-01-24
+undefined,Dining Table,Furniture,Supplier Five,200.00,350.00,7,2025-01-23
+undefined,Office Chair,Furniture,Supplier Five,50.00,120.00,12,2025-01-22
+undefined,Sofa Set,Furniture,Supplier Five,300.00,500.00,5,2025-01-21
+undefined,Wheat 5kg,Groceries,Supplier Four,8.00,12.00,120,2025-01-20
+undefined,Rice 5kg,Groceries,Supplier Four,10.00,15.00,100,2025-01-19
+undefined,Jeans Regular,Clothing,Supplier Three,18.00,38.00,30,2025-01-18
+undefined,Jeans Slim Fit,Clothing,Supplier Three,20.00,40.00,25,2025-01-17
+undefined,T-Shirt Red,Clothing,Supplier Three,5.00,15.00,40,2025-01-16
+undefined,T-Shirt Blue,Clothing,Supplier Three,5.00,15.00,50,2025-01-15
+undefined,Dell XPS 13,Electronics,Supplier Two,1000.00,1500.00,10,2025-01-14
+undefined,MacBook Pro,Electronics,Supplier One,1200.00,1800.00,5,2025-01-13
+undefined,Samsung Galaxy S23,Electronics,Supplier Two,650.00,950.00,8,2025-01-12
+undefined,iPhone 15,Electronics,Supplier One,700.00,1000.00,15,2025-01-10

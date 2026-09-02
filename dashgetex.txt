@@ -1,0 +1,92 @@
+<?php
+header('Content-Type: application/json');
+include 'db.php'; // must define $conn
+
+$response = [
+  'stats' => [
+    'totalProducts' => 0,
+    'totalSuppliers' => 0,
+    'totalOrders' => 0,
+    'totalRevenue' => 0,
+    'dailySales' => 0,
+    'dailyExpenses' => 0
+  ],
+  'lowStock' => [],
+  'monthlySales' => array_fill(0, 12, 0),
+  'monthlyExpenses' => array_fill(0, 12, 0),
+  'monthlyProfit' => array_fill(0, 12, 0)
+];
+
+// ---------- STATS ----------
+try {
+  // Total Products
+  $sql = "SELECT COUNT(*) AS c FROM products";
+  $res = $conn->query($sql);
+  $response['stats']['totalProducts'] = $res->fetch_assoc()['c'] ?? 0;
+
+  // Total Suppliers
+  $sql = "SELECT COUNT(*) AS c FROM suppliers";
+  $res = $conn->query($sql);
+  $response['stats']['totalSuppliers'] = $res->fetch_assoc()['c'] ?? 0;
+
+  // Open Orders
+  $sql = "SELECT COUNT(*) AS c FROM orders WHERE status='open'";
+  $res = $conn->query($sql);
+  $response['stats']['totalOrders'] = $res->fetch_assoc()['c'] ?? 0;
+
+  // Total Revenue (completed orders)
+  $sql = "SELECT SUM(total) AS s FROM orders WHERE status='completed'";
+  $res = $conn->query($sql);
+  $response['stats']['totalRevenue'] = (float)($res->fetch_assoc()['s'] ?? 0);
+
+  // Today's Sales
+  $sql = "SELECT SUM(total) AS s FROM orders WHERE DATE(created_at)=CURDATE() AND status='completed'";
+  $res = $conn->query($sql);
+  $response['stats']['dailySales'] = (float)($res->fetch_assoc()['s'] ?? 0);
+
+  // Today's Purchases (as expenses)
+  $sql = "SELECT SUM(total) AS s FROM purchase WHERE DATE(created_at)=CURDATE() AND status='completed'";
+  $res = $conn->query($sql);
+  $response['stats']['dailyExpenses'] = (float)($res->fetch_assoc()['s'] ?? 0);
+
+  // ---------- LOW STOCK ----------
+  $lowStockSql = "SELECT name, sku, stock, category FROM products WHERE stock <= 10 ORDER BY stock ASC LIMIT 10";
+  $res = $conn->query($lowStockSql);
+  while ($row = $res->fetch_assoc()) {
+    $response['lowStock'][] = $row;
+  }
+
+  // ---------- MONTHLY SALES ----------
+  $salesSql = "
+    SELECT MONTH(created_at) AS m, SUM(total) AS total
+    FROM orders
+    WHERE status='completed' AND YEAR(created_at)=YEAR(CURDATE())
+    GROUP BY MONTH(created_at)";
+  $res = $conn->query($salesSql);
+  while ($row = $res->fetch_assoc()) {
+    $response['monthlySales'][$row['m'] - 1] = (float)$row['total'];
+  }
+
+  // ---------- MONTHLY PURCHASES ----------
+  $purchaseSql = "
+    SELECT MONTH(created_at) AS m, SUM(total) AS total
+    FROM purchase
+    WHERE status='completed' AND YEAR(created_at)=YEAR(CURDATE())
+    GROUP BY MONTH(created_at)";
+  $res = $conn->query($purchaseSql);
+  while ($row = $res->fetch_assoc()) {
+    $response['monthlyExpenses'][$row['m'] - 1] = (float)$row['total'];
+  }
+
+  // ---------- MONTHLY PROFIT ----------
+  for ($i = 0; $i < 12; $i++) {
+    $response['monthlyProfit'][$i] = $response['monthlySales'][$i] - $response['monthlyExpenses'][$i];
+  }
+
+} catch (Exception $e) {
+  $response['error'] = $e->getMessage();
+}
+
+echo json_encode($response);
+$conn->close();
+?>

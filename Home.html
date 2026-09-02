@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Dashboard | BRIMS</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+
+<style>
+  :root {
+    --bg: #0f172a;
+    --sidebar: #1e293b;
+    --card: #1e293b;
+    --text: #f1f5f9;
+    --accent: #3b82f6;
+    --success: #22c55e;
+    --danger: #ef4444;
+  }
+
+  :root[data-theme='light'] {
+    --bg: #f8fafc;
+    --sidebar: #e2e8f0;
+    --card: #ffffff;
+    --text: #1e293b;
+    --accent: #2563eb;
+    --success: #16a34a;
+    --danger: #dc2626;
+  }
+
+  body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    display: flex;
+    transition: all 0.3s ease;
+  }
+
+
+  /* ===== SIDEBAR ===== */
+  .logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 15px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.logo img {
+  width: 50px;
+  height: 50px;
+  object-fit: contain;
+  border-radius: 10px;
+}
+
+  .sidebar {
+    width: 220px;
+    background: var(--sidebar);
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    padding-top: 20px;
+    transition: width 0.3s ease;
+    box-shadow: 2px 0 8px rgba(0,0,0,0.2);
+    overflow: hidden;
+    z-index: 999;
+  }
+
+  .sidebar h2 {
+    text-align: center;
+    margin: 0 0 20px;
+    color: var(--accent);
+    font-weight: 600;
+    font-size: 1.4em;
+  }
+
+  .sidebar ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .sidebar li {
+    margin: 10px 0;
+  }
+
+  .sidebar a {
+    color: var(--text);
+    text-decoration: none;
+    padding: 12px 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border-radius: 8px;
+    transition: background 0.2s ease;
+    white-space: nowrap;
+  }
+
+  .sidebar a:hover {
+    background: var(--accent);
+    color: #fff;
+  }
+
+  .sidebar.collapsed {
+    width: 60px;
+  }
+
+  .sidebar.collapsed h2 {
+    display: none;
+  }
+
+  .sidebar.collapsed a {
+    justify-content: center;
+    padding: 12px 0;
+  }
+
+  .sidebar.collapsed a span {
+    display: none;
+  }
+
+  /* ===== MAIN CONTENT ===== */
+  .main-content {
+    margin-left: 220px;
+    padding: 20px;
+    flex: 1;
+    transition: margin-left 0.3s ease;
+  }
+
+  .sidebar.collapsed + .main-content {
+    margin-left: 60px;
+  }
+
+  /* ===== HEADER ===== */
+  header {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 25px;
+  }
+
+  .header-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+
+  .left-controls, .right-controls {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  header h1 {
+    margin: 10px 0;
+    font-size: 1.6em;
+  }
+
+  .btn, .logout-btn {
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    padding: 8px 14px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.2s ease, transform 0.2s ease;
+    font-size: 0.95em;
+  }
+
+  .btn:hover, .logout-btn:hover {
+    background: #1d4ed8;
+    transform: translateY(-2px);
+  }
+
+  .logout-btn {
+    text-decoration: none;
+    font-weight: 500;
+  }
+
+  /* ===== CARDS ===== */
+  .cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 20px;
+    margin-bottom: 35px;
+  }
+
+  .card {
+    background: var(--card);
+    padding: 18px;
+    border-radius: 12px;
+    text-align: center;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+    transition: all 0.3s ease;
+  }
+
+  .card:hover {
+    transform: translateY(-5px);
+    background: var(--accent);
+    color: #fff;
+  }
+
+  .card h3 {
+    font-size: 1em;
+    margin-bottom: 10px;
+  }
+
+  .card p {
+    font-size: 1.4em;
+    font-weight: 600;
+  }
+
+  /* ===== CHARTS ===== */
+  .chart-container {
+    background: var(--card);
+    padding: 20px;
+    border-radius: 12px;
+    margin-bottom: 40px;
+    height: 360px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  }
+
+  .chart-container h2 {
+    margin-bottom: 10px;
+    font-size: 1.2em;
+  }
+
+  /* ===== TABLE ===== */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--card);
+    border-radius: 10px;
+    overflow: hidden;
+    margin-top: 20px;
+  }
+
+  th, td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #334155;
+  }
+
+  th {
+    background: var(--sidebar);
+    color: #fff;
+    position: sticky;
+    top: 0;
+  }
+
+  tr:hover {
+    background: var(--accent);
+    color: #fff;
+  }
+
+  .low-stock {
+    color: var(--danger);
+    font-weight: bold;
+  }
+
+  /* ===== TOAST ===== */
+  .toast {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: #333;
+    color: #fff;
+    padding: 12px 20px;
+    border-radius: 8px;
+    opacity: 0;
+    transition: 0.3s ease;
+    z-index: 1000;
+  }
+
+  .toast.show {
+    opacity: 1;
+  }
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width: 768px) {
+    .sidebar {
+      display: none;
+    }
+
+    .main-content {
+      margin-left: 0;
+      padding: 15px;
+    }
+
+    header h1 {
+      font-size: 1.3em;
+    }
+
+    .cards {
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    }
+  }
+  #chatbot {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 320px;
+  background: #1e293b;
+  color: #fff;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+  font-family: 'Poppins', sans-serif;
+  z-index: 9999;
+}
+
+#chatbot-header {
+  background: #3b82f6;
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: 600;
+}
+
+#chatbot-header button {
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+#chatbot-body {
+  display: flex;
+  flex-direction: column;
+  height: 350px;
+}
+
+#chatbot-messages {
+  flex: 1;
+  padding: 10px;
+  overflow-y: auto;
+}
+
+#chatbot-input {
+  border: none;
+  padding: 10px;
+  font-size: 14px;
+  outline: none;
+  width: 100%;
+  background: #0f172a;
+  color: #fff;
+}
+
+.message {
+  margin-bottom: 10px;
+  padding: 8px 12px;
+  border-radius: 10px;
+  max-width: 80%;
+  word-wrap: break-word;
+}
+
+.user {
+  background: #2563eb;
+  align-self: flex-end;
+  margin-left: auto;
+}
+
+.bot {
+  background: #475569;
+  align-self: flex-start;
+}
+/* Chatbot collapsed state */
+#chatbot.collapsed {
+  height: 50px; /* just show the header */
+  overflow: hidden;
+  transition: height 0.3s ease;
+}
+
+#chatbot:not(.collapsed) {
+  height: 400px; /* normal height when open */
+  transition: height 0.3s ease;
+}
+
+
+</style>
+</head>
+<body>
+ <div class="sidebar" id="sidebar">
+  <div class="logo">
+    <img src="https://cdn-icons-png.flaticon.com/512/1828/1828673.png" alt="logo" />
+  </div>
+
+      <ul>
+            <li><a href="index.html"> <span>Dashboard</span></a></li>
+            <li><a href="products.html"> <span>Inventory</span></a></li>
+            <li><a href="suppliers.html"> <span>Suppliers</span></a></li>
+            <li><a href="orders.html"> <span>Orders</span></a></li>
+            <li><a href="reports.html"> <span>Reports</span></a></li>
+            <li><a href="budgets.html"> <span>Budget</span></a></li>
+            <li><a href="request.html"> <span>Help</span></a></li>
+            <li><a href="chat.html"> <span>Chatbot</span></a></li>
+            <li><a href="settings.html"> <span>Settings</span></a></li>
+
+      </ul>
+</div>
+
+  <div class="main-content">
+    <header>
+      <div class="header-controls">
+        <div class="left-controls">
+          <button id="sidebarToggle" class="btn">☰</button>
+        </div>
+        <div class="right-controls">
+          <button id="themeToggle" class="btn">🌙 Dark Mode</button>
+          <a href="logout.php" class="logout-btn">Logout</a>
+        </div>
+      </div>
+      <h1>Admin Dashboard</h1>
+    </header>
+
+    <div class="cards">
+      <div class="card"><h3>Total Products</h3><p id="totalProducts">0</p></div>
+      <div class="card"><h3>Total Suppliers</h3><p id="totalSuppliers">0</p></div>
+      <div class="card"><h3>Open Orders</h3><p id="totalOrders">0</p></div>
+      <div class="card"><h3>Total Revenue</h3><p id="totalRevenue">$0.00</p></div>
+      <div class="card"><h3>Today's Sales</h3><p id="dailySales">$0.00</p></div>
+      <div class="card"><h3>Today's Expenses</h3><p id="dailyExpenses">$0.00</p></div>
+    </div>
+
+    <div class="chart-container">
+      <h2>Monthly Profit Overview</h2>
+      <canvas id="profitChart"></canvas>
+    </div>
+
+    <div class="chart-container">
+      <h2>Monthly Sales vs Expenses</h2>
+      <canvas id="salesExpensesChart"></canvas>
+    </div>
+
+    <h2>Low Stock Alerts</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Product</th>
+          <th>SKU</th>
+          <th>Stock</th>
+          <th>Category</th>
+        </tr>
+      </thead>
+      <tbody id="lowStockTable"></tbody>
+    </table>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <!-- Chatbot Widget -->
+
+
+<script>
+let profitChartInstance = null;
+let salesExpensesChartInstance = null;
+
+const sidebar = document.getElementById('sidebar');
+document.getElementById('sidebarToggle').addEventListener('click', () => {
+  sidebar.classList.toggle('collapsed');
+  document.querySelector('.main-content').style.marginLeft =
+    sidebar.classList.contains('collapsed') ? '60px' : '220px';
+});
+
+// Light/Dark theme toggle
+const themeBtn = document.getElementById('themeToggle');
+const root = document.documentElement;
+if (localStorage.getItem('theme') === 'light') {
+  root.setAttribute('data-theme', 'light');
+  themeBtn.textContent = '🌙 Dark Mode';
+}
+themeBtn.addEventListener('click', () => {
+  if (root.getAttribute('data-theme') === 'light') {
+    root.removeAttribute('data-theme');
+    themeBtn.textContent = '☀️ Light Mode';
+    localStorage.setItem('theme', 'dark');
+  } else {
+    root.setAttribute('data-theme', 'light');
+    themeBtn.textContent = '🌙 Dark Mode';
+    localStorage.setItem('theme', 'light');
+  }
+});
+
+// Toast function
+function showToast(msg, duration = 3000) {
+  const toast = document.getElementById('toast');
+  toast.textContent = msg;
+  toast.classList.add('show');
+  setTimeout(() => toast.classList.remove('show'), duration);
+}
+
+// Dynamic dashboard data
+function updateDashboard() {
+  fetch('dashboard_data.php')
+    .then(r => r.json())
+    .then(data => {
+      const stats = data.stats;
+      document.getElementById('totalProducts').textContent = stats.totalProducts;
+      document.getElementById('totalSuppliers').textContent = stats.totalSuppliers;
+      document.getElementById('totalOrders').textContent = stats.totalOrders;
+      document.getElementById('totalRevenue').textContent = `$${parseFloat(stats.totalRevenue).toFixed(2)}`;
+      document.getElementById('dailySales').textContent = `$${parseFloat(stats.dailySales).toFixed(2)}`;
+      document.getElementById('dailyExpenses').textContent = `$${parseFloat(stats.dailyExpenses).toFixed(2)}`;
+
+      const tbody = document.getElementById('lowStockTable');
+      tbody.innerHTML = '';
+      data.lowStock.forEach(item => {
+        const tr = document.createElement('tr');
+        if (item.stock <= 5) tr.classList.add('low-stock');
+        tr.innerHTML = `<td>${item.name}</td><td>${item.sku}</td><td>${item.stock}</td><td>${item.category}</td>`;
+        tbody.appendChild(tr);
+      });
+
+      const months = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+
+      if (profitChartInstance) profitChartInstance.destroy();
+      if (salesExpensesChartInstance) salesExpensesChartInstance.destroy();
+
+      const profitCtx = document.getElementById('profitChart').getContext('2d');
+      const gradient = profitCtx.createLinearGradient(0, 0, 0, 400);
+      gradient.addColorStop(0, 'rgba(59,130,246,0.4)');
+      gradient.addColorStop(1, 'rgba(59,130,246,0)');
+
+      setTimeout(() => {
+        profitChartInstance = new Chart(profitCtx, {
+          type: 'line',
+          data: {
+            labels: months,
+            datasets: [{
+              label: 'Profit',
+              data: data.monthlyProfit,
+              borderColor: '#3b82f6',
+              backgroundColor: gradient,
+              borderWidth: 2,
+              tension: 0.3,
+              fill: true
+            }]
+          },
+          options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true } } }
+        });
+
+        const salesCtx = document.getElementById('salesExpensesChart').getContext('2d');
+        salesExpensesChartInstance = new Chart(salesCtx, {
+          type: 'bar',
+          data: {
+            labels: months,
+            datasets: [
+              { label: 'Sales', data: data.monthlySales, backgroundColor: 'rgba(59,130,246,0.7)' },
+              { label: 'Expenses', data: data.monthlyExpenses, backgroundColor: 'rgba(239,68,68,0.6)' }
+            ]
+          },
+          options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'top' } }, scales: { y: { beginAtZero: true } } }
+        });
+      }, 50);
+
+      showToast('Dashboard updated');
+    })
+    .catch(err => console.error('Error fetching dashboard data:', err));
+}
+
+updateDashboard();
+setInterval(updateDashboard, 30000);
+// === CHATBOT HANDLER ===
+const chatbot = document.getElementById('chatbot');
+const input = document.getElementById('chatbot-input');
+const messagesDiv = document.getElementById('chatbot-messages');
+const toggleBtn = document.getElementById('chatbot-toggle');
+
+// Toggle chatbot visibility
+toggleBtn.addEventListener('click', () => {
+  chatbot.classList.toggle('collapsed');
+  toggleBtn.textContent = chatbot.classList.contains('collapsed') ? '▢' : '_';
+});
+
+// Send message when pressing Enter
+input.addEventListener('keypress', async (e) => {
+  if (e.key === 'Enter' && input.value.trim() !== '') {
+    const userMessage = input.value.trim();
+    appendMessage(userMessage, 'user');
+    input.value = '';
+
+    // Typing animation
+    appendMessage("BRIMS Assistant is typing...", 'bot');
+    const typingMsg = messagesDiv.lastChild;
+
+    const data = await getBotResponse(userMessage);
+    typingMsg.remove();
+
+    appendMessage(data.reply, 'bot');
+
+    // Handle redirect
+    if (data.redirect) {
+      appendMessage(` Redirecting to ${data.redirect}...`, 'bot');
+      setTimeout(() => {
+        window.location.href = data.redirect;
+      }, 1500);
+    }
+
+    // Handle chart response
+    if (data.chartData && data.chartData.labels && data.chartData.labels.length > 0) {
+      renderChart(data.chartData, data.chartType);
+    }
+  }
+});
+
+// Fetch chatbot response
+async function getBotResponse(query) {
+  try {
+    const res = await fetch('api/chatbot_responses.php?q=' + encodeURIComponent(query));
+    if (!res.ok) throw new Error('HTTP error');
+    return await res.json();
+  } catch (err) {
+    console.error('Chatbot Error:', err);
+    return { reply: "Sorry, I'm having trouble connecting right now." };
+  }
+}
+
+// Append message to chat
+function appendMessage(text, sender) {
+  const msg = document.createElement('div');
+  msg.classList.add('message', sender);
+  msg.innerHTML = text.replace(/\n/g, '<br>');
+  messagesDiv.appendChild(msg);
+  messagesDiv.scrollTop = messagesDiv.scrollHeight;
+}
+
+// === RENDER CHART FUNCTION ===
+function renderChart(chartData, chartType) {
+  const chartContainer = document.createElement('div');
+  chartContainer.classList.add('chart-container');
+  chartContainer.style.width = '100%';
+  chartContainer.style.height = '250px';
+  chartContainer.style.marginTop = '10px';
+  chartContainer.style.padding = '8px';
+  chartContainer.style.background = '#111';
+  chartContainer.style.borderRadius = '10px';
+
+  const canvas = document.createElement('canvas');
+  chartContainer.appendChild(canvas);
+  messagesDiv.appendChild(chartContainer);
+  messagesDiv.scrollTop = messagesDiv.scrollHeight;
+
+  new Chart(canvas, {
+    type: chartType || 'bar',
+    data: {
+      labels: chartData.labels,
+      datasets: [{
+        label: 'BRIMS Insights',
+        data: chartData.values,
+        borderWidth: 2,
+        borderColor: '#b388ff',
+        backgroundColor: 'rgba(179,136,255,0.3)',
+        tension: 0.3
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      scales: {
+        x: { ticks: { color: '#fff' }, grid: { color: '#333' } },
+        y: { ticks: { color: '#fff' }, grid: { color: '#333' } }
+      },
+      plugins: {
+        legend: { labels: { color: '#fff' } }
+      }
+    }
+  });
+}
+
+</script>
+
+
+</body>
+</html>

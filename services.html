@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Our Services | BRIMS</title>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  
+  <!-- AOS Library -->
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+  <!-- Vanilla Tilt Library -->
+  <script src="https://cdn.jsdelivr.net/npm/vanilla-tilt@1.7.2/dist/vanilla-tilt.min.js"></script>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="css/services.css">
+
+  <!-- Sticky header -->
+  <script>
+    window.addEventListener('scroll', function() {
+      document.querySelector('header').classList.toggle('scrolled', window.scrollY > 50);
+    });
+  </script>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <header>
+    <a href="index.html" class="logo">
+      <img src="https://cdn-icons-png.flaticon.com/512/1828/1828673.png" alt="logo">
+      <h1>BRIMS</h1>
+    </a>
+    <nav>
+      <ul>
+        <li><a href="services.html" class="active">Services</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="login.html" class="btn">Login</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-overlay"></div>
+    <div class="hero-content" data-aos="fade-up">
+      <h1>Empowering <span class="typing"></span></h1>
+      <p>Streamline operations, track performance, and make smarter business decisions with BRIMS.</p>
+      <div class="scroll-down">↓</div>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section class="services" data-aos="fade-up">
+    <h2>Our Services</h2>
+    <p>Everything you need to manage your business efficiently.</p>
+    <div class="services-grid">
+      <div class="service-card" data-tilt data-tilt-max="15" data-aos="zoom-in">
+        <h3>User Management</h3>
+        <ul>
+          <li>Admin, Manager, and Staff roles</li>
+          <li>Role-based access control</li>
+          <li>Secure login with encryption</li>
+        </ul>
+      </div>
+      <div class="service-card" data-tilt data-tilt-max="15" data-aos="zoom-in" data-aos-delay="100">
+        <h3>Inventory Management</h3>
+        <ul>
+          <li>Add, update, delete products</li>
+          <li>Stock tracking & low-stock alerts</li>
+          <li>Barcode/QR integration</li>
+        </ul>
+      </div>
+      <div class="service-card" data-tilt data-tilt-max="15" data-aos="zoom-in" data-aos-delay="200">
+        <h3>Sales & Orders</h3>
+        <ul>
+          <li>Record & track sales</li>
+          <li>Generate invoices & receipts</li>
+          <li>Manage customers & history</li>
+        </ul>
+      </div>
+      <div class="service-card" data-tilt data-tilt-max="15" data-aos="zoom-in" data-aos-delay="300">
+        <h3>Supplier & Purchase</h3>
+        <ul>
+          <li>Manage supplier profiles</li>
+          <li>Create & monitor purchase orders</li>
+          <li>Track deliveries & payments</li>
+        </ul>
+      </div>
+      <div class="service-card" data-tilt data-tilt-max="15" data-aos="zoom-in" data-aos-delay="400">
+        <h3>Resource Management</h3>
+        <ul>
+          <li>Track company assets</li>
+          <li>Schedule maintenance</li>
+          <li>Assign resources efficiently</li>
+        </ul>
+      </div>
+      <div class="service-card" data-tilt data-tilt-max="15" data-aos="zoom-in" data-aos-delay="500">
+        <h3>Reports & Analytics</h3>
+        <ul>
+          <li>Monitor sales, stock & profits</li>
+          <li>Interactive dashboards & charts</li>
+          <li>Export reports to PDF/Excel</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRICING -->
+  <section class="pricing" data-aos="fade-up">
+    <h2>Flexible Plans</h2>
+    <p>Choose a plan that fits your team and workflow.</p>
+    <div class="pricing-grid">
+      <div class="pricing-card">
+        <h3>Basic</h3>
+        <p class="price">$20<span>/mo</span></p>
+        <ul>
+          <li>Product management</li>
+          <li>Sales tracking</li>
+          <li>Supplier management</li>
+        </ul>
+        <button>Choose</button>
+      </div>
+      <div class="pricing-card featured">
+        <h3>Business</h3>
+        <p class="price">$40<span>/mo</span></p>
+        <ul>
+          <li>All Basic features</li>
+          <li>Role-based access</li>
+          <li>Profit dashboards</li>
+          <li>Resource tracking</li>
+        </ul>
+        <button>Choose</button>
+      </div>
+      <div class="pricing-card">
+        <h3>Enterprise</h3>
+        <p class="price">Custom</p>
+        <ul>
+          <li>Custom integrations</li>
+          <li>Dedicated support</li>
+          <li>API access</li>
+          <li>Advanced reporting</li>
+        </ul>
+        <button>Contact</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="socials">
+      <a href="#"><img src="https://cdn-icons-png.flaticon.com/512/733/733547.png" alt="Facebook"></a>
+      <a href="#"><img src="https://cdn-icons-png.flaticon.com/512/733/733558.png" alt="Twitter"></a>
+      <a href="#"><img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" alt="Instagram"></a>
+    </div>
+    <p>© 2025 BRIMS — All Rights Reserved</p>
+  </footer>
+
+  <!-- AOS JS -->
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>
+    AOS.init({ duration: 1000, once: true });
+
+    // Typing effect
+    const typedText = ["Smarter Businesses", "Faster Decisions", "Better Growth"];
+    let i = 0, j = 0, currentText = "", isDeleting = false;
+    const typingElement = document.querySelector(".typing");
+
+    function type() {
+      if(i >= typedText.length) i=0;
+      const fullText = typedText[i];
+      if(!isDeleting) {
+        currentText = fullText.slice(0, j+1);
+        j++;
+        typingElement.textContent = currentText;
+        if(currentText === fullText) { isDeleting = true; setTimeout(type, 1000); return; }
+      } else {
+        currentText = fullText.slice(0, j-1);
+        j--;
+        typingElement.textContent = currentText;
+        if(j===0) { isDeleting=false; i++; }
+      }
+      setTimeout(type, isDeleting ? 50 : 150);
+    }
+    type();
+
+    // Vanilla Tilt init
+    VanillaTilt.init(document.querySelectorAll(".service-card"), {
+      max: 15,
+      speed: 400,
+      glare: true,
+      "max-glare": 0.2
+    });
+  </script>
+</body>
+</html>

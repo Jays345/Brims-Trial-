@@ -1,0 +1,153 @@
+/* RESET */
+* { margin:0; padding:0; box-sizing:border-box; font-family:'Poppins',sans-serif; }
+
+/* COLORS */
+:root {
+  --primary: #1e90ff;
+  --secondary: #00c49a;
+  --text: #333;
+  --bg: #f7f9fc;
+  --card-bg: #fff;
+  --shadow: rgba(0,0,0,0.1);
+}
+
+body { background: var(--bg); color: var(--text); overflow-x:hidden; }
+
+/* HEADER */
+header {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  padding: 10px 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #fff;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  z-index: 1000;
+  transition: all 0.3s ease;
+}
+
+/* LOGO */
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+}
+
+.logo img {
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+}
+
+.logo h1 {
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: var(--primary);
+  letter-spacing: 1px;
+}
+
+.logo h1:hover {
+  text-decoration: underline;
+}
+
+/* NAVIGATION */
+nav ul {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+
+nav ul li a {
+  text-decoration: none;
+  color: var(--text);
+  font-weight: 500;
+  transition: 0.3s;
+}
+
+nav ul li a:hover,
+nav ul li a.active {
+  color: var(--primary);
+}
+
+nav ul li .btn {
+  background: var(--primary);
+  color: #fff;
+  padding: 6px 14px;
+  border-radius: 6px;
+  font-weight: 500;
+  transition: 0.3s;
+}
+
+nav ul li .btn:hover {
+  background: var(--secondary);
+  transform: scale(1.05);
+}
+
+/* HERO */
+.hero {
+  position: relative;
+  height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+}
+.hero-background {
+  position:absolute;
+  width:100%;
+  height:100%;
+  background:url('https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=1500&q=80') center/cover no-repeat;
+  filter:brightness(0.85);
+}
+.hero-content {
+  position:relative;
+  
+  z-index:2;
+  padding:0 20px;
+}
+.hero-content h1 { font-size:3rem; margin-bottom:15px; }
+.hero-content .typing { color: var(--secondary); }
+.hero-content p { font-size:1.2rem; margin-bottom:30px; }
+.scroll-down { font-size:2rem; color: var(--secondary); cursor:pointer; animation:bounce 2s infinite; }
+@keyframes bounce {0%,100%{transform:translateY(0);}50%{transform:translateY(10px);}}
+
+
+.mission { text-align:center; padding:100px 40px; }
+.mission h2 { color: var(--primary); font-size:2.2rem; margin-bottom:20px; }
+.mission p { max-width:700px; margin:0 auto 50px; font-size:1.1rem; color: #555; }
+.mission-cards { display:flex; flex-wrap:wrap; gap:30px; justify-content:center; }
+.mission-card { background: var(--card-bg); padding:30px; width:280px; border-radius:15px; box-shadow:0 8px 20px var(--shadow); transition:0.4s; text-align:center; }
+.mission-card:hover { transform:translateY(-10px); box-shadow:0 15px 30px var(--secondary); }
+.mission-card i { font-size:2rem; color: var(--primary); margin-bottom:15px; }
+
+
+.vision { display:flex; flex-wrap:wrap; gap:50px; padding:100px 60px; align-items:center; justify-content:center; }
+.vision-text { flex:1; min-width:300px; }
+.vision-text h2 { color: var(--primary); margin-bottom:15px; }
+.vision-text p { color:#555; line-height:1.6; }
+.vision-image { flex:1; min-width:300px; }
+.vision-image img { width:100%; border-radius:20px; box-shadow:0 10px 30px var(--shadow); transition:0.4s; }
+.vision-image img:hover { transform:scale(1.03); }
+
+/* GALLERY */
+.gallery { padding:100px 40px; text-align:center; }
+.gallery h2 { color: var(--primary); margin-bottom:50px; font-size:2rem; }
+.gallery-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:25px; }
+.gallery-item img { width:100%; border-radius:15px; transition:0.4s; }
+.gallery-item:hover img { transform:scale(1.05); filter:brightness(0.85); }
+
+/* FOOTER */
+footer { text-align:center; padding:40px; background:#fff; color:#555; }
+footer .socials { margin-bottom:15px; }
+footer .socials a { font-size:1.4rem; margin:0 10px; color: var(--primary); transition:0.3s; }
+footer .socials a:hover { color: var(--secondary); transform:scale(1.2); }
+
+/* RESPONSIVE */
+@media(max-width:1024px){
+  .vision{flex-direction:column;}
+  .mission-cards{flex-direction:column;align-items:center;}
+}

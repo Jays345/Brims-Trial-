@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>My Chatbot — Full</title>
+  <link rel="stylesheet" href="css/chat.css">
+
+  
+</head>
+
+<body>
+   
+
+
+
+  <div class="sidebar">
+      <ul>
+          <li><a href="index.html"> <span>Dashboard</span></a></li>
+          <li><a href="products.html"> <span>Inventory</span></a></li>
+          <li><a href="suppliers.html"> <span>Suppliers</span></a></li>
+          <li><a href="orders.html"> <span>Orders</span></a></li>
+          <li><a href="reports.html"> <span>Reports</span></a></li>
+          <li><a href="budgets.html"> <span>Budget</span></a></li>
+          <li><a href="request.html"> <span>Help</span></a></li>
+          <li><a href="chat.html"> <span>Chatbot</span></a></li>
+          <li><a href="settings.html"> <span>Settings</span></a></li>
+
+    </ul>
+  </div>
+
+  <div class="app">
+    <header class="app-header">
+      <h1>My Chatbot</h1>
+      <div class="controls">
+        <button id="sidebarToggle" class="sidebar-btn">☰</button>
+        <label class="switch"><input id="voiceToggle" type="checkbox"><span>Voice</span></label>
+        <label class="switch"><input id="darkToggle" type="checkbox"><span>Dark</span></label>
+      </div>
+    </header>
+
+    <main class="main">
+      <section class="left">
+        <div id="chatWindow" class="chat-window"></div>
+
+        <form id="chatForm" class="chat-form">
+          <input id="messageInput" autocomplete="off" placeholder="Type a message...">
+          <button type="submit">Send</button>
+        </form>
+      </section>
+
+      <aside class="right">
+        <section class="panel">
+          <h3>Upload CSV (simple analysis)</h3>
+          <form id="csvForm" enctype="multipart/form-data">
+            <input id="csvFile" type="file" accept=".csv" />
+            <button type="submit">Upload & Analyze</button>
+          </form>
+          <div id="csvResult"></div>
+        </section>
+
+        <section class="panel">
+          <h3>History</h3>
+          <button id="loadHistoryBtn">Load recent</button>
+          <div id="historyBox"></div>
+        </section>
+
+        <section class="panel">
+          <h3>Chart</h3>
+          <canvas id="chartCanvas"></canvas>
+        </section>
+      </aside>
+    </main>
+
+    <footer class="footer">
+      <small>Local XAMPP demo — do not expose API keys publicly.</small>
+    </footer>
+  </div>
+
+  <!-- Chart.js CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="js/chat.js"></script>
+
+</body>
+</html>
