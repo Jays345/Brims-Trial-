@@ -1,0 +1,453 @@
+
+
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>BRIMS — Reports Dashboard</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<!-- Libraries -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/countup.js@2.0.8/dist/countUp.umd.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css" />
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
+<style>
+:root {
+  --bg: #0f172a;
+  --sidebar: #1e293b;
+  --card: #1e293b;
+  --text: #f1f5f9;
+  --muted: #94a3b8;
+  --accent: #3b82f6;
+  --success: #22c55e;
+  --danger: #ef4444;
+  --table-header: #334155;
+  --border: #334155;
+  font-family: 'Poppins', system-ui, sans-serif;
+  color-scheme: dark;
+}
+
+:root[data-theme='light'] {
+  --bg: #f8fafc;
+  --sidebar: #e2e8f0;
+  --card: #ffffff;
+  --text: #1e293b;
+  --muted: #475569;
+  --accent: #2563eb;
+  --success: #16a34a;
+  --danger: #dc2626;
+  --table-header: #f1f5f9;
+  --border: #cbd5e1;
+  color-scheme: light;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  margin: 0;
+  display: flex;
+  min-height: 100vh;
+  transition: all 0.4s ease;
+}
+
+.logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 15px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.logo img {
+  width: 50px;
+  height: 50px;
+  object-fit: contain;
+  border-radius: 10px;
+}
+
+
+.sidebar {
+  width: 220px;
+  background: var(--sidebar);
+  color: var(--text);
+  height: 100vh;
+  position: fixed;
+  left: 0;
+  top: 0;
+  padding-top: 20px;
+  transition: width 0.3s ease;
+  overflow: hidden;
+}
+
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sidebar ul li {
+  margin: 10px 0;
+}
+
+.sidebar a {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 20px;
+  color: var(--text);
+  text-decoration: none;
+  transition: background 0.3s;
+  white-space: nowrap;
+}
+
+.sidebar a:hover {
+  background: var(--accent);
+  color: #fff;
+}
+
+.sidebar.collapsed {
+  width: 70px;
+}
+
+.sidebar.collapsed h2 {
+  display: none;
+}
+
+.sidebar.collapsed a {
+  justify-content: center;
+  padding: 10px;
+}
+
+.sidebar.collapsed a span {
+  display: none; /* hides the text but keeps icons visible */
+}
+
+.sidebar.collapsed a i {
+  font-size: 18px;
+}
+
+/* Adjust main content when sidebar collapses */
+.main-content {
+  margin-left: 220px;
+  transition: margin-left 0.3s ease;
+}
+
+.sidebar.collapsed + .main-content {
+  margin-left: 70px;
+}
+
+
+/* Container */
+.container {
+  margin-left: 260px;
+  flex: 1;
+  padding: 28px;
+  transition: margin-left 0.3s;
+}
+.sidebar.collapsed + .container { margin-left: 70px; }
+
+.header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 18px; }
+.brand { display: flex; gap: 12px; align-items: center; }
+.brand img { width: 44px; height: 44px; border-radius: 8px; }
+.brand h1 { font-size: 20px; margin: 0; color: var(--text); }
+
+.btn {
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  background: var(--accent);
+  color: white;
+  transition: background 0.3s, transform 0.2s;
+}
+.btn:hover { transform: scale(1.03); }
+.btn.secondary { background: #64748b; }
+
+.grid { display: grid; gap: 18px; }
+.kpi-grid { grid-template-columns: repeat(auto-fit, minmax(180px,1fr)); }
+
+.card {
+  background: var(--card);
+  border-radius: 12px;
+  padding: 16px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.2);
+  transition: background 0.3s, color 0.3s;
+  border: 1px solid var(--border);
+}
+
+.kpi .label { font-size: 13px; color: var(--muted); }
+.kpi .value { font-size: 20px; font-weight: 700; color: var(--text); }
+
+.charts { display: grid; grid-template-columns: 2fr 1fr; gap: 18px; }
+
+table.dataTable { color: var(--text) !important; background: var(--card); border: 1px solid var(--border); }
+table.dataTable th { background: var(--table-header) !important; color: var(--text) !important; }
+.dataTables_wrapper .dataTables_paginate .paginate_button { color: var(--text) !important; }
+
+footer { margin-top: 18px; text-align: center; color: var(--muted); }
+</style>
+</head>
+
+<body>
+   <div class="sidebar" id="sidebar">
+  <div class="logo">
+    <img src="https://cdn-icons-png.flaticon.com/512/1828/1828673.png" alt="logo" />
+  </div>
+
+  <ul>
+   <li><a href="index.html">
+    <i class="fa-solid fa-house"></i> <span>Dashboard</span>
+</a></li>
+
+<li><a href="products.html">
+    <i class="fa-solid fa-box-open"></i> <span>Inventory</span>
+</a></li>
+
+<li><a href="suppliers.html">
+    <i class="fa-solid fa-truck"></i> <span>Suppliers</span>
+</a></li>
+
+<li><a href="orders.html">
+    <i class="fa-solid fa-file-invoice"></i> <span>Orders</span>
+</a></li>
+
+<li><a href="reports.html">
+    <i class="fa-solid fa-chart-line"></i> <span>Reports</span>
+</a></li>
+
+<li><a href="budgets.html">
+    <i class="fa-solid fa-coins"></i> <span>Budget</span>
+</a></li>
+
+<li><a href="request.html">
+    <i class="fa-solid fa-circle-question"></i> <span>Help</span>
+</a></li>
+
+<li><a href="chat.html">
+    <i class="fa-solid fa-robot"></i> <span>Chatbot</span>
+</a></li>
+
+<li><a href="settings.html">
+    <i class="fa-solid fa-gear"></i> <span>Settings</span>
+</a></li>
+
+
+  </ul>
+</div>
+
+
+
+  <!-- Main Container -->
+  <div class="container">
+    <div class="header">
+      <div class="brand">
+        <img src="https://cdn-icons-png.flaticon.com/512/4645/4645949.png" alt="logo">
+        <h1>Reports Dashboard</h1>
+      </div>
+      <div class="toolbar" style="display:flex; gap:10px;">
+        <button class="btn secondary" id="sidebarToggle">☰</button>
+        <button class="btn secondary" id="themeToggle">🌙 Dark Mode</button>
+        <button class="btn" id="downloadPDF"> Export PDF</button>
+        <button class="btn secondary" id="generateReport"> Generate Report</button>
+      </div>
+    </div>
+
+    <!-- KPI Summary -->
+    <div class="grid kpi-grid">
+      <div class="card kpi"><div class="label">Total Sales</div><div class="value" id="sales">₹124,500</div></div>
+      <div class="card kpi"><div class="label">Total Expenses</div><div class="value" id="expenses">₹38,200</div></div>
+      <div class="card kpi"><div class="label">Profit Margin</div><div class="value" id="profit">₹86,300 (+12%)</div></div>
+      <div class="card kpi"><div class="label">Total Orders</div><div class="value" id="orders">312</div></div>
+      <div class="card kpi"><div class="label">Top Seller</div><div class="value" id="seller">Justin</div></div>
+    </div>
+
+    <br>
+
+    <!-- Charts -->
+    <div class="charts">
+      <div class="card">
+        <h3>Monthly Sales vs Expenses</h3>
+        <canvas id="lineChart"></canvas>
+      </div>
+      <div class="card">
+        <h3>Category Performance</h3>
+        <canvas id="pieChart"></canvas>
+      </div>
+    </div>
+
+    <br>
+
+    <!-- Table -->
+    <div class="card">
+      <h3>Report History</h3>
+      <table id="reportsTable" class="display" style="width:100%">
+        <thead>
+          <tr>
+            <th>Date Range</th>
+            <th>Sales</th>
+            <th>Expenses</th>
+            <th>Profit</th>
+            <th>Top Seller</th>
+            <th>PDF</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Oct 2025</td>
+            <td>₹124,500</td>
+            <td>₹38,200</td>
+            <td>₹86,300</td>
+            <td>Justin</td>
+            <td><button class="btn secondary"> Download</button></td>
+          </tr>
+          <tr>
+            <td>Sep 2025</td>
+            <td>₹115,900</td>
+            <td>₹42,700</td>
+            <td>₹73,200</td>
+            <td>Chris</td>
+            <td><button class="btn secondary"> Download</button></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <footer><p>© 2025 BRIMS | Reports Analytics Center</p></footer>
+  </div>
+<script>
+    // Sidebar toggle
+    const sidebar = document.getElementById('sidebar');
+    const sidebarBtn = document.getElementById('sidebarToggle');
+    sidebarBtn.addEventListener('click', () => sidebar.classList.toggle('collapsed'));
+
+    // Theme toggle
+    const themeBtn = document.getElementById('themeToggle');
+    const root = document.documentElement;
+
+    if(localStorage.getItem('theme') === 'light'){
+      root.setAttribute('data-theme','light');
+      themeBtn.textContent = '🌙 Dark Mode';
+    }
+
+    themeBtn.addEventListener('click', () => {
+      if(root.getAttribute('data-theme') === 'light'){
+        root.removeAttribute('data-theme');
+        themeBtn.textContent = '☀️ Light Mode';
+        localStorage.setItem('theme','dark');
+      } else {
+        root.setAttribute('data-theme','light');
+        themeBtn.textContent = '🌙 Dark Mode';
+        localStorage.setItem('theme','light');
+      }
+    });
+
+    // Charts
+   
+async function loadReports() {
+    try {
+        const res = await fetch('api/get_reports.php'); 
+        const reports = await res.json();
+
+        if (reports.error) {
+            console.error(reports.error);
+            return;
+        }
+
+        if (reports.length === 0) return;
+
+        // --- Update KPI Cards ---
+        const latest = reports[0]; // take latest report
+        document.getElementById('sales').textContent = `₹${parseFloat(latest.total_sales).toLocaleString()}`;
+        document.getElementById('expenses').textContent = `₹${parseFloat(latest.total_expenses || 0).toLocaleString()}`;
+        document.getElementById('profit').textContent = `₹${parseFloat(latest.profit || latest.total_sales).toLocaleString()}`;
+        document.getElementById('orders').textContent = latest.total_orders || 0;
+        document.getElementById('seller').textContent = latest.top_seller || "N/A";
+
+        // --- Populate Table ---
+        const tbody = document.querySelector('#reportsTable tbody');
+        tbody.innerHTML = '';
+        reports.forEach(r => {
+            const tr = document.createElement('tr');
+            tr.innerHTML = `
+                <td>${r.report_title} (${new Date(r.generated_at).toLocaleDateString()})</td>
+                <td>₹${parseFloat(r.total_sales).toLocaleString()}</td>
+                <td>₹${parseFloat(r.total_expenses || 0).toLocaleString()}</td>
+                <td>₹${parseFloat(r.profit || r.total_sales).toLocaleString()}</td>
+                <td>${r.top_seller || "N/A"}</td>
+                <td><button class="btn secondary"> Download</button></td>
+            `;
+            tbody.appendChild(tr);
+        });
+
+        // --- Reinitialize DataTable ---
+        if ($.fn.DataTable.isDataTable('#reportsTable')) {
+            $('#reportsTable').DataTable().destroy();
+        }
+        $('#reportsTable').DataTable();
+
+        // --- Update Line Chart ---
+        const labels = reports.map(r => r.report_title);
+        const salesData = reports.map(r => parseFloat(r.total_sales));
+        const expensesData = reports.map(r => parseFloat(r.total_expenses || 0));
+
+        const ctx1 = document.getElementById('lineChart').getContext('2d');
+        if (window.lineChartInstance) window.lineChartInstance.destroy();
+        window.lineChartInstance = new Chart(ctx1, {
+            type: 'line',
+            data: {
+                labels: labels,
+                datasets: [
+                    { label: 'Sales', data: salesData, borderColor: '#22c55e', fill: false },
+                    { label: 'Expenses', data: expensesData, borderColor: '#ef4444', fill: false }
+                ]
+            },
+            options: {
+                plugins: { legend: { labels: { color: '#fff' } } },
+                scales: { x: { ticks: { color: '#fff' } }, y: { ticks: { color: '#fff' } } }
+            }
+        });
+
+        // --- Update Pie Chart (optional, e.g., category percentages if provided) ---
+        const ctx2 = document.getElementById('pieChart').getContext('2d');
+        if (window.pieChartInstance) window.pieChartInstance.destroy();
+        window.pieChartInstance = new Chart(ctx2, {
+            type: 'doughnut',
+            data: {
+                labels: ['Electronics','Retail','Services','Others'], // replace with dynamic if available
+                datasets: [{ data: [40,30,20,10], backgroundColor:['#3b82f6','#22c55e','#f59e0b','#a855f7'] }]
+            },
+            options:{ plugins:{ legend:{ labels:{ color:'#fff' } } } }
+        });
+        
+
+    } catch (error) {
+        console.error(error);
+    }
+}
+
+// Load reports after DOM ready
+$(document).ready(function(){
+    loadReports();
+});
+
+
+  </script>
+
+</body>
+</html>
+
+
+
+
+

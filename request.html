@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact Requests | BRIMS</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; font-family:'Poppins', sans-serif; }
+body { background:#f4f6f9; color:#333; }
+h1 { text-align:center; margin:50px 0 30px; color:#2c3e50; font-weight:700; font-size:2rem; letter-spacing:1px; }
+table { width:90%; margin:0 auto 60px; border-collapse:separate; border-spacing:0; background:#fff; border-radius:12px; box-shadow:0 10px 25px rgba(0,0,0,0.1); overflow:hidden; }
+thead { background: linear-gradient(90deg,#1abc9c,#16a085); color:#fff; }
+th, td { padding:16px 20px; text-align:left; }
+tbody tr { cursor:pointer; transition:all 0.3s ease; border-bottom:1px solid #eee; }
+tbody tr:hover { background: rgba(26, 188, 156, 0.1); transform: translateX(3px); }
+.btn-contact { padding:6px 12px; border:none; border-radius:6px; background-color:#1abc9c; color:#fff; cursor:pointer; font-size:0.9rem; transition: background 0.3s ease, transform 0.2s ease; }
+.btn-contact:hover { background-color:#16a085; transform: scale(1.05); }
+.modal { display:none; position:fixed; z-index:999; left:0; top:0; width:100%; height:100%; background:rgba(0,0,0,0.4); justify-content:center; align-items:center; opacity:0; pointer-events:none; transition: opacity 0.3s ease; }
+.modal.active { display:flex; opacity:1; pointer-events:auto; }
+.modal-content { background:#fff; padding:35px 30px; border-radius:15px; width:90%; max-width:550px; box-shadow:0 15px 40px rgba(0,0,0,0.25); position:relative; transform:translateY(30px); opacity:0; transition:transform 0.4s ease, opacity 0.4s ease; }
+.modal.active .modal-content { transform:translateY(0); opacity:1; }
+.close { position:absolute; right:20px; top:15px; font-size:24px; color:#7f8c8d; cursor:pointer; transition:all 0.3s ease; }
+.close:hover { color:#e74c3c; transform:rotate(90deg) scale(1.2); }
+.modal-content h2 { color:#16a085; margin-bottom:15px; font-size:1.8rem; }
+.modal-content p { margin-bottom:12px; line-height:1.6; font-size:1rem; color:#2c3e50; }
+.modal-content .timestamp { font-size:0.9rem; color:#95a5a6; margin-top:15px; border-top:1px solid #eee; padding-top:10px; }
+textarea.reply { width:100%; height:100px; margin:10px 0; padding:10px; border-radius:8px; border:1px solid #ccc; resize:none; font-family:'Poppins', sans-serif; }
+@media(max-width:768px) { th, td { font-size:0.9rem; padding:12px 15px; } .modal-content { width:95%; padding:25px; } }
+</style>
+</head>
+<body>
+
+<div id="pageContent">
+<h1>Contact Requests</h1>
+
+<table id="requestsTable">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Email</th>
+      <th>Phone</th>
+      <th>Submitted At</th>
+     
+    </tr>
+  </thead>
+  <tbody id="requestsBody">
+    <tr><td colspan="5" style="text-align:center;">Loading...</td></tr>
+  </tbody>
+</table>
+</div>
+
+<!-- Modal -->
+<div id="modal" class="modal">
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <h2 id="modalName"></h2>
+    <p><strong>Email:</strong> <span id="modalEmail"></span></p>
+    <p><strong>Phone:</strong> <span id="modalPhone"></span></p>
+    <p><strong>Message:</strong></p>
+    <p id="modalMessage"></p>
+    <p class="timestamp"><strong>Submitted At:</strong> <span id="modalTime"></span></p>
+    
+    <!-- Reply -->
+    <label for="replyText"><strong>Your Response:</strong></label>
+    <textarea id="replyText" class="reply" placeholder="Type your response here..."></textarea>
+    <button class="btn-contact" id="sendReplyBtn"> Send Response</button>
+  </div>
+</div>
+
+<script>
+async function loadRequests() {
+  try {
+    const res = await fetch('api/get_requests.php');
+    const data = await res.json();
+    const tbody = document.getElementById('requestsBody');
+    tbody.innerHTML = '';
+
+    if (!data.length) {
+      tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;">No requests yet</td></tr>';
+      return;
+    }
+
+    data.forEach(req => {
+      const tr = document.createElement('tr');
+      tr.innerHTML = `
+        <td>${req.name}</td>
+        <td>${req.email}</td>
+        <td>${req.phone}</td>
+        <td>${req.submitted_at}</td>
+    
+      `;
+
+     
+
+      // Row click opens modal
+      tr.addEventListener('click', () => showModal(req));
+      tbody.appendChild(tr);
+    });
+  } catch(err) {
+    console.error(err);
+    document.getElementById('requestsBody').innerHTML = '<tr><td colspan="5" style="text-align:center;">Error loading requests</td></tr>';
+  }
+}
+
+// Modal logic
+const modal = document.getElementById('modal');
+const closeBtn = document.querySelector('.close');
+const pageContent = document.getElementById('pageContent');
+const replyText = document.getElementById('replyText');
+const sendReplyBtn = document.getElementById('sendReplyBtn');
+
+function showModal(req) {
+  document.getElementById('modalName').innerText = req.name;
+  document.getElementById('modalEmail').innerText = req.email;
+  document.getElementById('modalPhone').innerText = req.phone;
+  document.getElementById('modalMessage').innerText = req.message;
+  document.getElementById('modalTime').innerText = req.submitted_at;
+  replyText.value = ''; // clear previous reply
+
+  modal.classList.add('active');
+  pageContent.classList.add('blurred');
+
+  sendReplyBtn.onclick = () => {
+    const response = encodeURIComponent(replyText.value);
+    if (!response.trim()) {
+      alert('Please type a response before sending!');
+      return;
+    }
+    const mailto = `mailto:${req.email}?subject=Response to your request&body=Hi ${req.name},%0D%0A%0D%0A${response}`;
+    window.location.href = mailto;
+  };
+}
+
+closeBtn.onclick = function() {
+  modal.classList.remove('active');
+  pageContent.classList.remove('blurred');
+};
+
+window.onclick = function(e) {
+  if(e.target === modal) {
+    modal.classList.remove('active');
+    pageContent.classList.remove('blurred');
+  }
+};
+
+loadRequests();
+</script>
+
+</body>
+</html>
